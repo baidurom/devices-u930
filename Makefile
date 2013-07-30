@@ -131,7 +131,7 @@ PREBUILT_RECOVERY_IMG := flase
 # you need decode android.policy.jar to the project directory (use apktool d android.policy.jar) first
 # then you can make it by:   make android.policy
 #-----------------------------------------------------------------------------
-vendor_modify_jars := framework services android.policy
+vendor_modify_jars := framework framework_ext services android.policy
 
 ##############################################################################
 # Directorys which you want to saved in baidu directory
