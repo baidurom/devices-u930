@@ -129,6 +129,9 @@
 
 .field public when:J
 
+.field public simId:J
+
+.field public simInfoType:I
 
 # direct methods
 .method static constructor <clinit>()V
