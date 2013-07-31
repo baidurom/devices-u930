@@ -80,7 +80,7 @@ BASE_PLATFORM := qualcomm
 # NULL, none boot.img/recovery.img
 #-----------------------------------------------------------------------------
 PREBUILT_BOOT_IMG := false
-PREBUILT_RECOVERY_IMG := flase
+#PREBUILT_RECOVERY_IMG := flase
 
 ##############################################################################
 # Directorys which you want to remove in vendor directory
@@ -168,6 +168,9 @@ vendor_modify_jars := framework framework_ext services android.policy
 override_property += \
     qemu.hw.mainkeys=1
 
+# OTA package properties
+override_property += \
+    ro.product.device.alias=ventana_U930,ventana_u930
 
 ##############################################################################
 # override_property: this property will override the build.prop
