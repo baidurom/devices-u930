@@ -152,7 +152,7 @@ vendor_modify_jars := framework framework_ext services android.policy
 # baidu_modify_apps: which base the baidu's apk
 # just override the res, append *.smali.part
 #-----------------------------------------------------------------------------
-# baidu_modify_apps := Phone SystemUI
+baidu_modify_apps := Phone
 
 ##############################################################################
 # baidu_modify_jars: which base the baidu's jar
