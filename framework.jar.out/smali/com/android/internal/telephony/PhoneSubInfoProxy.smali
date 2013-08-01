@@ -249,3 +249,17 @@
     .line 39
     return-void
 .end method
+
+.method public getIccCardType()Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 134
+    iget-object v0, p0, Lcom/android/internal/telephony/PhoneSubInfoProxy;->mPhoneSubInfo:Lcom/android/internal/telephony/PhoneSubInfo;
+
+    invoke-virtual {v0}, Lcom/android/internal/telephony/PhoneSubInfo;->getIccCardType()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method

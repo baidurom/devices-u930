@@ -1246,6 +1246,47 @@
     goto :goto_0
 .end method
 
+.method public getIccCardType()Ljava/lang/String;
+    .locals 3
+
+    .prologue
+    const/4 v1, 0x0
+
+    .line 1214
+    :try_start_0
+    invoke-direct {p0}, Landroid/telephony/TelephonyManager;->getSubscriberInfo()Lcom/android/internal/telephony/IPhoneSubInfo;
+
+    move-result-object v2
+
+    invoke-interface {v2}, Lcom/android/internal/telephony/IPhoneSubInfo;->getIccCardType()Ljava/lang/String;
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+    .catch Ljava/lang/NullPointerException; {:try_start_0 .. :try_end_0} :catch_1
+
+    move-result-object v1
+
+    .line 1219
+    :goto_0
+    return-object v1
+
+    .line 1215
+    :catch_0
+    move-exception v0
+
+    .line 1216
+    .local v0, ex:Landroid/os/RemoteException;
+    goto :goto_0
+
+    .line 1217
+    .end local v0           #ex:Landroid/os/RemoteException;
+    :catch_1
+    move-exception v0
+
+    .line 1219
+    .local v0, ex:Ljava/lang/NullPointerException;
+    goto :goto_0
+.end method
+
 .method public getIccCardType()I
     .locals 4
 
