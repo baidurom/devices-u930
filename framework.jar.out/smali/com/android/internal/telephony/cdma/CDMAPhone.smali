@@ -4337,7 +4337,23 @@
     .locals 1
 
     .prologue
+    .line 1495
+    iget-object v0, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mEriManager:Lcom/android/internal/telephony/cdma/EriManager;
+
+    if-nez v0, :cond_1
+
+    .line 1496
+    const-string v0, "CDMA"
+
+    const-string v1, "Trying to access stale objects"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1505
+    goto :cond_0
+
     .line 1457
+    :cond_1
     iget-object v0, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mEriManager:Lcom/android/internal/telephony/cdma/EriManager;
 
     invoke-virtual {v0}, Lcom/android/internal/telephony/cdma/EriManager;->loadEriFile()V
