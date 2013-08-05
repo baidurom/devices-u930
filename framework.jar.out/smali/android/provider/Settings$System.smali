@@ -236,6 +236,9 @@
 .field public static final POINTER_SPEED:Ljava/lang/String; = "pointer_speed"
 
 .field public static final POWER_SOUNDS_ENABLED:Ljava/lang/String; = "power_sounds_enabled"
+.field public static final PRE_SET_ALARM_ALERT:Ljava/lang/String; = "pre_set_alarm_alert"
+.field public static final PRE_SET_NOTIFICATION_SOUND:Ljava/lang/String; = "pre_set_notification_sound"
+.field public static final PRE_SET_RINGTONE:Ljava/lang/String; = "pre_set_ringtone"
 
 .field public static final RADIO_BLUETOOTH:Ljava/lang/String; = "bluetooth"
 
