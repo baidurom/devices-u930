@@ -5738,6 +5738,11 @@
     .restart local v24       #receivers:Ljava/util/List;
     :cond_16
     :goto_6
+    move-object/from16 v0, p0
+    iget-object v3, v0, Lcom/android/server/am/ActivityManagerService;->mLruProcesses:Ljava/util/ArrayList;
+    move-object/from16 v0, v24
+    move-object/from16 v1, v44
+    invoke-static {v0, v15, v1, v3}, Lcom/baidu/security/bm/BroadcastManagerService;->filterBroadcastReceiver(Ljava/util/List;Ljava/util/List;Landroid/content/Intent;Ljava/util/ArrayList;)I
     invoke-virtual/range {v44 .. v44}, Landroid/content/Intent;->getFlags()I
 
     move-result v3
@@ -5809,6 +5814,11 @@
 
     .line 13042
     .local v7, r:Lcom/android/server/am/BroadcastRecord;
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/am/ActivityManagerService;->isMmsHookEnabled()Z
+    move-result v3
+    if-eqz v3, :cond_90
+    invoke-virtual {v7}, Lcom/android/server/am/BroadcastRecord;->hookMessageBroadcast()V
+    :cond_90
     if-eqz v55, :cond_22
 
     invoke-virtual {v8, v7}, Lcom/android/server/am/BroadcastQueue;->replaceParallelBroadcastLocked(Lcom/android/server/am/BroadcastRecord;)Z
@@ -6430,6 +6440,11 @@
 
     .line 13137
     .restart local v7       #r:Lcom/android/server/am/BroadcastRecord;
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/am/ActivityManagerService;->isMmsHookEnabled()Z
+    move-result v3
+    if-eqz v3, :cond_91
+    invoke-virtual {v7}, Lcom/android/server/am/BroadcastRecord;->hookMessageBroadcast()V
+    :cond_91
     if-eqz v55, :cond_30
 
     invoke-virtual {v8, v7}, Lcom/android/server/am/BroadcastQueue;->replaceOrderedBroadcastLocked(Lcom/android/server/am/BroadcastRecord;)Z
@@ -20559,6 +20574,32 @@
     throw v4
 .end method
 
+.method private final isMmsHookEnabled()Z
+    .locals 3
+
+    .prologue
+    const/4 v0, 0x0
+
+    .line 12708
+    iget-object v1, p0, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v1
+
+    const-string v2, "system.mms"
+
+    invoke-static {v1, v2, v0}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    const/4 v0, 0x1
+
+    :cond_0
+    return v0
+.end method
 .method private isReceivingBroadcast(Lcom/android/server/am/ProcessRecord;)Lcom/android/server/am/BroadcastQueue;
     .locals 6
     .parameter "app"
@@ -61059,6 +61100,11 @@
 
     .line 12747
     .local v7, r:Lcom/android/server/am/BroadcastRecord;
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/am/ActivityManagerService;->isMmsHookEnabled()Z
+    move-result v5
+    if-eqz v5, :cond_90
+    invoke-virtual {v7}, Lcom/android/server/am/BroadcastRecord;->hookMessageBroadcast()V
+    :cond_90
     invoke-virtual {v8, v7}, Lcom/android/server/am/BroadcastQueue;->enqueueParallelBroadcastLocked(Lcom/android/server/am/BroadcastRecord;)V
 
     .line 12748
