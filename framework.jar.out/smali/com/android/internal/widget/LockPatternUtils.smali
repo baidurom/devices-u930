@@ -1221,11 +1221,11 @@
 .end method
 
 .method public clearLock(Z)V
-    .locals 4
+    .locals 5
     .parameter "isFallback"
 
     .prologue
-    const-wide/16 v2, 0x0
+    const-wide/16 v3, 0x0
 
     const/4 v1, 0x0
 
@@ -1251,12 +1251,15 @@
     .line 408
     const-string v0, "lockscreen.password_type"
 
-    invoke-direct {p0, v0, v2, v3}, Lcom/android/internal/widget/LockPatternUtils;->setLong(Ljava/lang/String;J)V
+    invoke-direct {p0, v0, v3, v4}, Lcom/android/internal/widget/LockPatternUtils;->setLong(Ljava/lang/String;J)V
 
     .line 409
+    const-string v0, "lockscreen.lockmode_type"
+    const-wide/16 v1, 0x2
+    invoke-direct {p0, v0, v1, v2}, Lcom/android/internal/widget/LockPatternUtils;->setLong(Ljava/lang/String;J)V
     const-string v0, "lockscreen.password_type_alternate"
 
-    invoke-direct {p0, v0, v2, v3}, Lcom/android/internal/widget/LockPatternUtils;->setLong(Ljava/lang/String;J)V
+    invoke-direct {p0, v0, v3, v4}, Lcom/android/internal/widget/LockPatternUtils;->setLong(Ljava/lang/String;J)V
 
     .line 410
     return-void
@@ -1947,7 +1950,7 @@
 
     move-result-object v0
 
-    const v1, 0x1110028
+    const v1, #bool@config_voice_capable#t
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
 
@@ -1967,7 +1970,7 @@
 
     move-result-object v0
 
-    const v1, 0x1110022
+    const v1, #bool@config_enable_emergency_call_while_sim_locked#t
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
 
@@ -2250,7 +2253,7 @@
 
     move-result-object v0
 
-    const v1, 0x1110021
+    const v1, #bool@config_enable_puk_unlock_screen#t
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
 
@@ -3739,11 +3742,11 @@
     if-ne p2, v3, :cond_1
 
     .line 1077
-    const v2, 0x10402fc
 
     .line 1078
+    const v2, #string@lockscreen_return_to_call#t
     .local v2, textId:I
-    const v1, 0x1080084
+    const v1, #drawable@stat_sys_phone_call#t
 
     .line 1079
     .local v1, phoneCallIcon:I
@@ -3769,11 +3772,11 @@
 
     .line 1081
     :cond_1
-    const v2, 0x10402fb
+    const v2, #string@lockscreen_emergency_call#t
 
     .line 1082
     .restart local v2       #textId:I
-    const v0, 0x10802c8
+    const v0, #drawable@ic_emergency#t
 
     .line 1083
     .local v0, emergencyIcon:I
