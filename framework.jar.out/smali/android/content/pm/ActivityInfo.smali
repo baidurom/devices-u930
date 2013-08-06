@@ -31,6 +31,7 @@
 
 .field public static final CONFIG_SMALLEST_SCREEN_SIZE:I = 0x800
 
+.field public static final CONFIG_THEME:I = -0x80000000
 .field public static final CONFIG_TOUCHSCREEN:I = 0x8
 
 .field public static final CONFIG_UI_MODE:I = 0x200
@@ -380,10 +381,11 @@
 .end method
 
 .method public static activityInfoConfigToNative(I)I
-    .locals 3
+    .locals 4
     .parameter "input"
 
     .prologue
+    const/high16 v3, -0x8000
     .line 391
     const/4 v1, 0x0
 
@@ -423,6 +425,10 @@
 
     .line 397
     :cond_1
+    and-int v2, p0, v3
+    if-eqz v2, :cond_2
+    or-int/2addr v1, v3
+    :cond_2
     return v1
 .end method
 
