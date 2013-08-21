@@ -1173,7 +1173,7 @@
 
     .line 2719
     .local v3, res:Landroid/content/res/Resources;
-    const v6, 0x1050001
+    const v6, #dimen@thumbnail_height#t
 
     invoke-virtual {v3, v6}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
@@ -1183,7 +1183,7 @@
     iput v2, p0, Landroid/app/ActivityThread;->mThumbnailHeight:I
 
     .line 2722
-    const v6, 0x1050002
+    const v6, #dimen@thumbnail_width#t
 
     invoke-virtual {v3, v6}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
@@ -7942,6 +7942,7 @@
     invoke-static {}, Landroid/os/AsyncTask;->init()V
 
     .line 4745
+    invoke-static {v0}, Landroid/app/ActivityThread;->multiTheme_freeCanvas(Landroid/app/ActivityThread;)V
     invoke-static {}, Landroid/os/Looper;->loop()V
 
     .line 4747

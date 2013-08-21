@@ -22187,7 +22187,7 @@
 
     .line 1368
     .local v1, context:Landroid/content/Context;
-    const v4, 0x103006b
+    const v4, #style@Theme.DeviceDefault.Light#t
 
     invoke-virtual {v1, v4}, Landroid/content/Context;->setTheme(I)V
 
@@ -64830,7 +64830,7 @@
 
     move-result-object v2
 
-    const v3, 0x1090095
+    const v3, #layout@safe_mode#t
 
     const/4 v4, 0x0
 
@@ -71655,7 +71655,7 @@
 
     .line 13505
     .local v26, kept:Z
-    if-eqz p1, :cond_9
+    if-eqz p1, :cond_a
 
     .line 13506
     new-instance v28, Landroid/content/res/Configuration;
@@ -71679,7 +71679,7 @@
     move-result v23
 
     .line 13508
-    if-eqz v23, :cond_9
+    if-eqz v23, :cond_a
 
     .line 13513
     const/16 v2, 0xa9f
@@ -72041,17 +72041,62 @@
     invoke-direct/range {v6 .. v20}, Lcom/android/server/am/ActivityManagerService;->broadcastIntentLocked(Lcom/android/server/am/ProcessRecord;Ljava/lang/String;Landroid/content/Intent;Ljava/lang/String;Landroid/content/IIntentReceiver;ILjava/lang/String;Landroid/os/Bundle;Ljava/lang/String;ZZIII)I
 
     .line 13580
+    :cond_9
+    const/high16 v2, -0x8000
+
+    and-int v2, v2, v23
+
+    if-eqz v2, :cond_a
+
+    .line 13692
+    const/4 v7, 0x0
+
+    const/4 v8, 0x0
+
+    new-instance v9, Landroid/content/Intent;
+
+    const-string v2, "android.intent.action.THEME_CHANGED"
+
+    invoke-direct {v9, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    const/4 v10, 0x0
+
+    const/4 v11, 0x0
+
+    const/4 v12, 0x0
+
+    const/4 v13, 0x0
+
+    const/4 v14, 0x0
+
+    const/4 v15, 0x0
+
+    const/16 v16, 0x0
+
+    const/16 v17, 0x0
+
+    sget v18, Lcom/android/server/am/ActivityManagerService;->MY_PID:I
+
+    const/16 v19, 0x3e8
+
+    const/16 v20, 0x0
+
+    move-object/from16 v6, p0
+
+    invoke-direct/range {v6 .. v20}, Lcom/android/server/am/ActivityManagerService;->broadcastIntentLocked(Lcom/android/server/am/ProcessRecord;Ljava/lang/String;Landroid/content/Intent;Ljava/lang/String;Landroid/content/IIntentReceiver;ILjava/lang/String;Landroid/os/Bundle;Ljava/lang/String;ZZIII)I
+
+    .line 13699
     .end local v5           #intent:Landroid/content/Intent;
     .end local v21           #ac:Lcom/android/server/AttributeCache;
     .end local v24           #configCopy:Landroid/content/res/Configuration;
     .end local v25           #i:I
     .end local v28           #newConfig:Landroid/content/res/Configuration;
-    :cond_9
-    if-eqz v23, :cond_a
+    :cond_a
+    if-eqz v23, :cond_b
 
-    if-nez p2, :cond_a
+    if-nez p2, :cond_b
 
-    .line 13584
+    .line 13703
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/android/server/am/ActivityManagerService;->mMainStack:Lcom/android/server/am/ActivityStack;
@@ -72062,11 +72107,11 @@
 
     move-result-object p2
 
-    .line 13587
-    :cond_a
-    if-eqz p2, :cond_b
+    .line 13706
+    :cond_b
+    if-eqz p2, :cond_c
 
-    .line 13588
+    .line 13707
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/android/server/am/ActivityManagerService;->mMainStack:Lcom/android/server/am/ActivityStack;
@@ -72079,7 +72124,7 @@
 
     move-result v26
 
-    .line 13591
+    .line 13710
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/android/server/am/ActivityManagerService;->mMainStack:Lcom/android/server/am/ActivityStack;
@@ -72090,8 +72135,8 @@
 
     invoke-virtual {v2, v0, v1}, Lcom/android/server/am/ActivityStack;->ensureActivitiesVisibleLocked(Lcom/android/server/am/ActivityRecord;I)V
 
-    .line 13594
-    :cond_b
+    .line 13713
+    :cond_c
     if-eqz p1, :cond_0
 
     move-object/from16 v0, p0
@@ -72100,7 +72145,7 @@
 
     if-eqz v2, :cond_0
 
-    .line 13595
+    .line 13714
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/android/server/am/ActivityManagerService;->mWindowManager:Lcom/android/server/wm/WindowManagerService;
@@ -72113,7 +72158,7 @@
 
     goto/16 :goto_0
 
-    .line 13563
+    .line 13675
     .restart local v21       #ac:Lcom/android/server/AttributeCache;
     .restart local v22       #app:Lcom/android/server/am/ProcessRecord;
     .restart local v24       #configCopy:Landroid/content/res/Configuration;
