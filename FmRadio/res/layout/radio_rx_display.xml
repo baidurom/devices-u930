@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:id="@id/radio_rx_display"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/fre_light" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/bg_light" />
+    <LinearLayout android:gravity="center" android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <ImageView android:id="@id/freq_digit1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/digit_0" />
+        <ImageView android:id="@id/freq_digit2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/digit_0" />
+        <ImageView android:id="@id/freq_digit3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/digit_0" />
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/digit_decimal" />
+        <ImageView android:id="@id/freq_digit4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/digit_0" />
+        <ImageView android:id="@id/freq_digit5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/digit_0" />
+        <ImageView android:id="@id/freq_HZ" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/icon_mhz" />
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.broadcom.bt.app.fm.rx.FmReceiveView
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:orientation="vertical" android:background="@drawable/bg" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <RelativeLayout android:orientation="horizontal" android:id="@id/top_bar" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true">
+            <ImageButton android:id="@id/power_off_button" android:background="@drawable/power_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
+        </RelativeLayout>
+        <include android:layout_width="fill_parent" android:layout_height="115.0dip" android:layout_below="@id/top_bar" layout="@layout/radio_rx_display" />
+        <com.broadcom.bt.app.fm.rx.FmRadioFrequencySlider android:id="@id/freq_slider" android:layout_width="fill_parent" android:layout_height="75.0dip" android:layout_below="@id/radio_rx_display" android:layout_centerHorizontal="true" />
+        <LinearLayout android:orientation="horizontal" android:id="@id/button_row_1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="22.0dip" android:layout_below="@id/freq_slider" android:layout_centerHorizontal="true">
+            <ImageButton android:id="@id/mute_button" android:background="@drawable/mute_on_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <ImageButton android:id="@id/tune_down_button" android:background="@drawable/tune_down_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <ImageButton android:id="@id/seek_down_button" android:background="@drawable/seek_down_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <ImageButton android:id="@id/seek_up_button" android:background="@drawable/seek_up_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <ImageButton android:id="@id/tune_up_button" android:background="@drawable/tune_up_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TableLayout android:id="@id/preset_button_panel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="15.0dip" android:layout_below="@id/button_row_1" android:layout_centerHorizontal="true" android_stretchColumns="*">
+            <TableRow>
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_1" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:layout_marginLeft="24.0dip" android:layout_marginRight="21.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_2" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_3" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:layout_marginLeft="21.0dip" android:layout_marginRight="24.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+            </TableRow>
+            <TableRow android:layout_marginTop="8.0dip">
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_4" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:layout_marginLeft="24.0dip" android:layout_marginRight="21.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_5" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_6" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:layout_marginLeft="21.0dip" android:layout_marginRight="24.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+            </TableRow>
+            <TableRow android:layout_marginTop="8.0dip">
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_7" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:layout_marginLeft="24.0dip" android:layout_marginRight="21.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_8" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_9" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:layout_marginLeft="21.0dip" android:layout_marginRight="24.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+            </TableRow>
+            <TableRow android:layout_marginTop="8.0dip">
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_10" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:layout_marginLeft="24.0dip" android:layout_marginRight="21.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_11" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+                <Button android:textSize="22.0dip" android:ellipsize="end" android:id="@id/ch_12" android:background="@drawable/ic_favorites_line_normal" android:layout_width="150.0dip" android:layout_height="58.0dip" android:layout_marginLeft="21.0dip" android:layout_marginRight="24.0dip" android:lines="1" android:singleLine="true" android:layout_weight="1.0" />
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+</com.broadcom.bt.app.fm.rx.FmReceiveView>

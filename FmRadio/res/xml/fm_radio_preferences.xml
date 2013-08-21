@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.broadcom.bt.app.fm.rx.CyclingPreference android:entries="@array/fm_audio_modes" android:title="@string/pref_menu_text_audio_mode" android:key="fm_pref_audio_mode" android:summary="@string/pref_menu_text_audio_mode_summary" android:defaultValue="0" android:dialogTitle="@string/pref_menu_text_audio_mode_dialog_title" android:entryValues="@array/fm_audio_modes_vals" />
+    <com.broadcom.bt.app.fm.rx.AudioPathPreference android:entries="@array/fm_audio_path" android:title="@string/pref_menu_text_audio_path" android:key="fm_pref_audio_path" android:summary="@string/pref_menu_text_audio_path_summary" android:defaultValue="2" android:dialogTitle="@string/pref_menu_text_audio_path_dialog_title" android:entryValues="@array/fm_audio_path_vals" />
+    <com.broadcom.bt.app.fm.rx.CyclingPreference android:entries="@array/fm_auto_search" android:title="@string/pref_menu_text_auto_search" android:key="fm_pref_auto_search" android:summary="@string/pref_menu_text_auto_search_summary" android:defaultValue="2" android:dialogTitle="@string/pref_menu_text_auto_search_dialog_title" android:entryValues="@array/fm_auto_search_vals" />
+</PreferenceScreen>
