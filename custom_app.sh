@@ -22,5 +22,8 @@ elif [ "$apkBaseName" = "Settings" ];then
 		sed -i '/unlock_set_baidu_slide/d' $tempSmaliDir/res/xml/security_settings_picker.xml
 	fi
 
+        # Replace the invoke-interface by invoke-virtual. IccCard is not an Interface but an Abstract Class.
+        find $tempSmaliDir -name "*\.smali" | xargs sed -i 's#invoke-interface\(.*Lcom/android/internal/telephony/IccCard;->\)#invoke-virtual\1#g'
+
 fi
 
