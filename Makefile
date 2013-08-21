@@ -85,7 +85,7 @@ PREBUILT_BOOT_IMG := false
 ##############################################################################
 # Directorys which you want to remove in vendor directory
 #-----------------------------------------------------------------------------
-#vendor_remove_dirs := app vendor/operator/app
+vendor_remove_dirs := app preload media/audio/notifications
 
 ##############################################################################
 # Files which you want to remove in vendor directory
