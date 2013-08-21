@@ -35,19 +35,21 @@
 
 # virtual methods
 .method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V
-    .locals 4
+    .locals 5
     .parameter "context"
     .parameter "intent"
 
     .prologue
+    const/16 v4, 0x3e8
+
     const/4 v3, 0x6
 
-    .line 294
+    .line 309
     invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 296
+    .line 311
     .local v0, action:Ljava/lang/String;
     const-string v1, "android.media.RINGER_MODE_CHANGED"
 
@@ -55,14 +57,14 @@
 
     move-result v1
 
-    if-eqz v1, :cond_0
+    if-eqz v1, :cond_1
 
-    .line 297
+    .line 312
     iget-object v1, p0, Landroid/view/VolumePanel$4;->this$0:Landroid/view/VolumePanel;
 
     invoke-virtual {v1, v3}, Landroid/view/VolumePanel;->removeMessages(I)V
 
-    .line 298
+    .line 313
     iget-object v1, p0, Landroid/view/VolumePanel$4;->this$0:Landroid/view/VolumePanel;
 
     iget-object v2, p0, Landroid/view/VolumePanel$4;->this$0:Landroid/view/VolumePanel;
@@ -73,7 +75,36 @@
 
     invoke-virtual {v1, v2}, Landroid/view/VolumePanel;->sendMessage(Landroid/os/Message;)Z
 
-    .line 300
+    .line 319
     :cond_0
+    :goto_0
     return-void
+
+    .line 314
+    :cond_1
+    const-string v1, "android.intent.action.THEME_CHANGED"
+
+    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    .line 316
+    iget-object v1, p0, Landroid/view/VolumePanel$4;->this$0:Landroid/view/VolumePanel;
+
+    invoke-virtual {v1, v4}, Landroid/view/VolumePanel;->removeMessages(I)V
+
+    .line 317
+    iget-object v1, p0, Landroid/view/VolumePanel$4;->this$0:Landroid/view/VolumePanel;
+
+    iget-object v2, p0, Landroid/view/VolumePanel$4;->this$0:Landroid/view/VolumePanel;
+
+    invoke-virtual {v2, v4}, Landroid/view/VolumePanel;->obtainMessage(I)Landroid/os/Message;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Landroid/view/VolumePanel;->sendMessage(Landroid/os/Message;)Z
+
+    goto :goto_0
 .end method
