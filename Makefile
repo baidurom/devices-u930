@@ -166,6 +166,10 @@ baidu_modify_apps := Phone Settings
 
 # hide the soft mainkeys
 override_property += \
+    ro.baidu.default_write.settable=true \
+    persist.sys.baidu.default_write=first_storage \
+    ro.baidu.2nd_storage.format=enable \
+    ro.baidu.config.dsdsmode=single \
     qemu.hw.mainkeys=1
 
 # OTA package properties

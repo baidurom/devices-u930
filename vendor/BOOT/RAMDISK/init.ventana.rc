@@ -7,7 +7,7 @@ on early-init
     mount debugfs debugfs /sys/kernel/debug
 
     export EXTERNAL_STORAGE /mnt/sdcard
-    export EXTERNAL_STORAGE2 /mnt/sdcard2
+    export SECONDARY_STORAGE /mnt/sdcard-ext
     mkdir /mnt/sdcard 0000 system system
     # for backwards compatibility
     symlink /mnt/sdcard /sdcard

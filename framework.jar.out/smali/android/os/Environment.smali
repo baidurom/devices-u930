@@ -109,6 +109,8 @@
     const/4 v0, 0x0
 
     sput-object v0, Landroid/os/Environment;->mPrimaryVolume:Landroid/os/storage/StorageVolume;
+    
+    sput-object v0, Landroid/os/Environment;->mSecondaryVolume:Landroid/os/storage/StorageVolume;
 
     .line 116
     const-string v0, "ANDROID_DATA"
@@ -164,6 +166,16 @@
     move-result-object v0
 
     sput-object v0, Landroid/os/Environment;->TF_STORAGE_DIRECTORY:Ljava/io/File;
+    
+    const-string v0, "SECONDARY_STORAGE"
+
+    const-string v1, "/mnt/sdcard-ext"
+
+    invoke-static {v0, v1}, Landroid/os/Environment;->getDirectory(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+
+    move-result-object v0
+
+    sput-object v0, Landroid/os/Environment;->SECONDARY_EXTERNAL_STORAGE_DIRECTORY:Ljava/io/File;
 
     .line 134
     const-string v0, "USB_STORAGE"
@@ -471,9 +483,16 @@
 
     .prologue
     .line 226
+    invoke-static {}, Landroid/os/Environment;->isSdcardOnePrimary()Z
+    move-result v0
+    if-eqz v0, :cond_0
     sget-object v0, Landroid/os/Environment;->EXTERNAL_STORAGE_DIRECTORY:Ljava/io/File;
 
+    :goto_0
     return-object v0
+    :cond_0
+    sget-object v0, Landroid/os/Environment;->SECONDARY_EXTERNAL_STORAGE_DIRECTORY:Ljava/io/File;
+    goto :goto_0
 .end method
 
 .method public static getExternalStoragePublicDirectory(Ljava/lang/String;)Ljava/io/File;
