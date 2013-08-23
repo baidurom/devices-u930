@@ -473,6 +473,8 @@
 
 .field public static final deleteText:I = 0x10403c1
 
+.field public static final description_target_unlock:I = #string@description_target_unlock#t
+
 .field public static final description_target_unlock_tablet:I = 0x10404cd
 
 .field public static final dial_number_using:I = 0x104046c
