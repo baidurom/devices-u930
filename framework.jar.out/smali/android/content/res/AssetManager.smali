@@ -925,7 +925,7 @@
 .end method
 
 .method private final openIconAsset(Ljava/lang/String;Ljava/lang/String;Z)Ljava/io/InputStream;
-    .locals 6
+    .locals 9
     .parameter "fileName"
     .parameter "packageName"
     .parameter "isIcon"
@@ -959,6 +959,7 @@
     sget-object v5, Ljava/io/File;->separator:Ljava/lang/String;
 
     invoke-virtual {v4, v5}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+    move-object v8, p2
 
     .line 896
     if-eqz p3, :cond_0
@@ -974,6 +975,17 @@
 
     invoke-virtual {v4, v5}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
 
+    const-string v6, "com.broadcom.bt.app.fm"
+    invoke-virtual {v6, v8}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v7
+    if-eqz v7, :cond_2
+    const-string v6, "com.broadcom.bt.app.fm.png"
+    invoke-virtual {v6, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v7
+    if-eqz v7, :cond_2
+    const-string v6, "com.baidu.fm.png"
+    move-object p1, v6
+    :cond_2
     .line 898
     invoke-virtual {v4, p1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
 
