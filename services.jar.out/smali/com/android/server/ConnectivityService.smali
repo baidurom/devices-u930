@@ -4071,7 +4071,7 @@
 
     .prologue
     .line 3316
-    const/4 v1, 0x0
+    const/4 v1, 0x1
 
     .line 3318
     .local v1, prefer:I
@@ -4098,7 +4098,7 @@
 
     invoke-static {v2}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
 
-    move-result v1
+    #move-result v1
 
     .line 3322
     monitor-exit v3
