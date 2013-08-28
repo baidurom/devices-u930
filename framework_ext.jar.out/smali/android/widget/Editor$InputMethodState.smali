@@ -45,31 +45,31 @@
     .locals 1
 
     .prologue
-    .line 3780
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 4296
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 3781
+    .line 4297
     new-instance v0, Landroid/graphics/Rect;
 
     invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
 
     iput-object v0, p0, Landroid/widget/Editor$InputMethodState;->mCursorRectInWindow:Landroid/graphics/Rect;
 
-    .line 3782
+    .line 4298
     new-instance v0, Landroid/graphics/RectF;
 
     invoke-direct {v0}, Landroid/graphics/RectF;-><init>()V
 
     iput-object v0, p0, Landroid/widget/Editor$InputMethodState;->mTmpRectF:Landroid/graphics/RectF;
 
-    .line 3783
+    .line 4299
     const/4 v0, 0x2
 
     new-array v0, v0, [F
 
     iput-object v0, p0, Landroid/widget/Editor$InputMethodState;->mTmpOffset:[F
 
-    .line 3785
+    .line 4301
     new-instance v0, Landroid/view/inputmethod/ExtractedText;
 
     invoke-direct {v0}, Landroid/view/inputmethod/ExtractedText;-><init>()V

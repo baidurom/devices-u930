@@ -1128,16 +1128,14 @@
 .end method
 
 .method setPos(I)V
-    .locals 1
+    .locals 0
     .parameter "pos"
 
     .prologue
     .line 86
-    iget v0, p0, Landroid/text/MeasuredText;->mTextStart:I
 
-    sub-int v0, p1, v0
 
-    iput v0, p0, Landroid/text/MeasuredText;->mPos:I
+    iput p1, p0, Landroid/text/MeasuredText;->mPos:I
 
     .line 87
     return-void
