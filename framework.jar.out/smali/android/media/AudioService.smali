@@ -4583,12 +4583,14 @@
     return-void
 .end method
 
-.method private ensureValidStreamType(I)V
-    .locals 3
+.method private ensureValidStreamType(I)Z
+    .locals 4
     .parameter "streamType"
 
     .prologue
-    .line 2252
+    const/4 v3, 0x1
+    
+    .line 2252 
     if-ltz p1, :cond_0
 
     iget-object v0, p0, Landroid/media/AudioService;->mStreamStates:[Landroid/media/AudioService$VolumeStreamState;
@@ -4618,14 +4620,22 @@
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v1
+    
+    const-string v2, "AudioService"
+    
+    invoke-static {v2, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    
+    const/4 v3, 0x0
+    
+    return v3
 
-    invoke-direct {v0, v1}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
+    #invoke-direct {v0, v1}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
 
-    throw v0
+    #throw v0
 
     .line 2255
     :cond_1
-    return-void
+    return v3
 .end method
 
 .method private filterMediaKeyEvent(Landroid/view/KeyEvent;Z)V
@@ -10327,7 +10337,11 @@
     invoke-direct {v0, v1}, Landroid/media/AudioService;->ensureValidDirection(I)V
 
     .line 749
-    invoke-direct/range {p0 .. p1}, Landroid/media/AudioService;->ensureValidStreamType(I)V
+    invoke-direct/range {p0 .. p1}, Landroid/media/AudioService;->ensureValidStreamType(I)Z
+    
+    move-result v0
+
+    if-eqz v0, :cond_9
 
     .line 754
     move-object/from16 v0, p0
@@ -10660,6 +10674,9 @@
 
     .restart local v21       #index:I
     goto :goto_2
+    
+    :cond_9
+    return-void
 .end method
 
 .method public adjustSuggestedStreamVolume(III)V
@@ -11206,7 +11223,11 @@
 
     .prologue
     .line 1178
-    invoke-direct {p0, p1}, Landroid/media/AudioService;->ensureValidStreamType(I)V
+    invoke-direct {p0, p1}, Landroid/media/AudioService;->ensureValidStreamType(I)Z
+    
+    move-result v0
+
+    if-eqz v0, :cond_0
 
     .line 1179
     invoke-direct {p0, p1}, Landroid/media/AudioService;->getDeviceForStream(I)I
@@ -11229,6 +11250,11 @@
 
     div-int/lit8 v1, v1, 0xa
 
+    return v1
+    
+    :cond_0
+    const/4 v1, 0x0
+    
     return v1
 .end method
 
@@ -11439,7 +11465,11 @@
 
     .prologue
     .line 1168
-    invoke-direct {p0, p1}, Landroid/media/AudioService;->ensureValidStreamType(I)V
+    invoke-direct {p0, p1}, Landroid/media/AudioService;->ensureValidStreamType(I)Z
+    
+    move-result v0
+
+    if-eqz v0, :cond_0
 
     .line 1169
     iget-object v0, p0, Landroid/media/AudioService;->mStreamStates:[Landroid/media/AudioService$VolumeStreamState;
@@ -11455,6 +11485,11 @@
     div-int/lit8 v0, v0, 0xa
 
     return v0
+    
+    :cond_0
+    const/4 v0, 0x0
+    
+    return v0
 .end method
 
 .method public getStreamVolume(I)I
@@ -11463,7 +11498,11 @@
 
     .prologue
     .line 1130
-    invoke-direct {p0, p1}, Landroid/media/AudioService;->ensureValidStreamType(I)V
+    invoke-direct {p0, p1}, Landroid/media/AudioService;->ensureValidStreamType(I)Z
+    
+    move-result v0
+
+    if-eqz v0, :cond_0
 
     .line 1131
     invoke-direct {p0, p1}, Landroid/media/AudioService;->getDeviceForStream(I)I
@@ -11486,6 +11525,11 @@
 
     div-int/lit8 v1, v1, 0xa
 
+    return v1
+    
+    :cond_0
+    const/4 v1, 0x0
+    
     return v1
 .end method
 
@@ -14768,7 +14812,11 @@
     const/4 v4, 0x0
 
     .line 870
-    invoke-direct {p0, p1}, Landroid/media/AudioService;->ensureValidStreamType(I)V
+    invoke-direct {p0, p1}, Landroid/media/AudioService;->ensureValidStreamType(I)Z
+    
+    move-result v0
+
+    if-eqz v0, :cond_7
 
     .line 871
     iget-object v0, p0, Landroid/media/AudioService;->mStreamStates:[Landroid/media/AudioService$VolumeStreamState;
@@ -14959,6 +15007,9 @@
 
     .line 909
     goto :goto_3
+    
+    :cond_7
+    return-void
 .end method
 
 .method public setVibrateSetting(II)V
