@@ -12,7 +12,7 @@ ro.build.type=user
 ro.build.user=
 ro.build.host=p95d-desktop20
 ro.build.tags=release-keys
-ro.product.model=ZTE U970
+ro.product.model=ZTE U930
 ro.product.brand=generic
 ro.product.name=ventana
 ro.product.device=ventana
@@ -48,12 +48,12 @@ ro.config.ringtone=BeatPlucker.ogg
 
 #add by hanguojun  +++
 zte.is.phone=1
-zte.is.phonetype=u970
+zte.is.phonetype=u930
 zte.closeshutdown.animation=0
 #0 for normal mode, 1 for net mode, 2 for cmcc mode
 zte.compile.for.net=0
-apps.setting.product.release=ZTE JB_U970V1.0.0B04
-ro.build.sw_internal_version=U970V1.0.1B07
+apps.setting.product.release=ZTE JB_U930V1.0.0B04
+ro.build.sw_internal_version=U930V1.0.1B07
 ro.config.notification_sound=F1_New_SMS.ogg
 #zte hanguojun add for adjust default timezone to +08:00
 persist.sys.timezone=Asia/Shanghai
