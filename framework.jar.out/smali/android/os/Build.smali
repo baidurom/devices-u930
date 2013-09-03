@@ -82,7 +82,7 @@
     sput-object v2, Landroid/os/Build;->ID:Ljava/lang/String;
 
     .line 33
-    const-string v2, "apps.setting.product.release"
+    const-string/jumbo v2, "ro.build.display.id"
 
     invoke-static {v2}, Landroid/os/Build;->getString(Ljava/lang/String;)Ljava/lang/String;
 
