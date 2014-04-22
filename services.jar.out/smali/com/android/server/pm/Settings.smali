@@ -182,6 +182,8 @@
 
 .field private final mSystemDir:Ljava/io/File;
 
+.field private mThirdBaiduApps:[Ljava/lang/String;
+
 .field private final mUserIds:Ljava/util/ArrayList;
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -505,11 +507,11 @@
 .end method
 
 .method constructor <init>(Ljava/io/File;)V
-    .locals 3
+    .locals 4
     .parameter "dataDir"
 
     .prologue
-    const/4 v2, -0x1
+    const/4 v3, -0x1
 
     .line 177
     invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
@@ -599,6 +601,48 @@
     iput-object v0, p0, Lcom/android/server/pm/Settings;->mReadMessages:Ljava/lang/StringBuilder;
 
     .line 170
+    const/4 v0, 0x6
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    const-string v2, "com.baidu.browser.apps"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x1
+
+    const-string v2, "com.baidu.appsearch"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x2
+
+    const-string v2, "com.baidu.voiceassistant"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x3
+
+    const-string v2, "com.baidu.searchbox"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x4
+
+    const-string v2, "com.baidu.BaiduMap"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x5
+
+    const-string v2, "com.baidu.netdisk"
+
+    aput-object v2, v0, v1
+
+    iput-object v0, p0, Lcom/android/server/pm/Settings;->mThirdBaiduApps:[Ljava/lang/String;
+    
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -628,7 +672,7 @@
 
     const/16 v1, 0x1fd
 
-    invoke-static {v0, v1, v2, v2}, Landroid/os/FileUtils;->setPermissions(Ljava/lang/String;III)I
+    invoke-static {v0, v1, v3, v3}, Landroid/os/FileUtils;->setPermissions(Ljava/lang/String;III)I
 
     .line 184
     new-instance v0, Ljava/io/File;
@@ -1279,7 +1323,7 @@
     .line 400
     :cond_1
     :goto_3
-    if-nez v3, :cond_e
+    if-nez v3, :cond_f
 
     .line 403
     if-nez p10, :cond_6
@@ -1470,7 +1514,7 @@
     :goto_5
     iget v4, v3, Lcom/android/server/pm/PackageSetting;->appId:I
 
-    if-gez v4, :cond_d
+    if-gez v4, :cond_e
 
     .line 483
     const/4 v4, 0x5
@@ -1545,16 +1589,23 @@
     .line 430
     and-int/lit8 v4, p9, 0x1
 
-    if-nez v4, :cond_8
+    if-eqz v4, :cond_8
 
+    invoke-virtual/range {p0 .. p1}, Lcom/android/server/pm/Settings;->isThirdBaiduApps(Ljava/lang/String;)Z
+    
+    move-result v4
+    
+    if-eqz v4, :cond_9
+    
     .line 436
+    :cond_8
     invoke-direct/range {p0 .. p0}, Lcom/android/server/pm/Settings;->getAllUsers()Ljava/util/List;
 
     move-result-object v16
 
     .line 437
     .local v16, users:Ljava/util/List;,"Ljava/util/List<Landroid/content/pm/UserInfo;>;"
-    if-eqz v16, :cond_8
+    if-eqz v16, :cond_9
 
     .line 438
     invoke-interface/range {v16 .. v16}, Ljava/util/List;->iterator()Ljava/util/Iterator;
@@ -1567,7 +1618,7 @@
 
     move-result v4
 
-    if-eqz v4, :cond_8
+    if-eqz v4, :cond_9
 
     invoke-interface {v12}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
@@ -1603,8 +1654,8 @@
     .end local v12           #i$:Ljava/util/Iterator;
     .end local v14           #user:Landroid/content/pm/UserInfo;
     .end local v16           #users:Ljava/util/List;,"Ljava/util/List<Landroid/content/pm/UserInfo;>;"
-    :cond_8
-    if-eqz p4, :cond_9
+    :cond_9
+    if-eqz p4, :cond_a
 
     .line 446
     move-object/from16 v0, p4
@@ -1616,7 +1667,7 @@
     goto :goto_5
 
     .line 449
-    :cond_9
+    :cond_a
     move-object/from16 v0, p0
 
     iget-object v4, v0, Lcom/android/server/pm/Settings;->mDisabledSysPackages:Ljava/util/HashMap;
@@ -1631,14 +1682,14 @@
 
     .line 450
     .local v11, dis:Lcom/android/server/pm/PackageSetting;
-    if-eqz v11, :cond_c
+    if-eqz v11, :cond_d
 
     .line 455
     iget-object v4, v11, Lcom/android/server/pm/PackageSettingBase;->signatures:Lcom/android/server/pm/PackageSignatures;
 
     iget-object v4, v4, Lcom/android/server/pm/PackageSignatures;->mSignatures:[Landroid/content/pm/Signature;
 
-    if-eqz v4, :cond_a
+    if-eqz v4, :cond_b
 
     .line 456
     iget-object v5, v3, Lcom/android/server/pm/PackageSettingBase;->signatures:Lcom/android/server/pm/PackageSignatures;
@@ -1656,7 +1707,7 @@
     iput-object v4, v5, Lcom/android/server/pm/PackageSignatures;->mSignatures:[Landroid/content/pm/Signature;
 
     .line 458
-    :cond_a
+    :cond_b
     iget v4, v11, Lcom/android/server/pm/PackageSetting;->appId:I
 
     iput v4, v3, Lcom/android/server/pm/PackageSetting;->appId:I
@@ -1677,7 +1728,7 @@
 
     .line 463
     .restart local v16       #users:Ljava/util/List;,"Ljava/util/List<Landroid/content/pm/UserInfo;>;"
-    if-eqz v16, :cond_b
+    if-eqz v16, :cond_c
 
     .line 464
     invoke-interface/range {v16 .. v16}, Ljava/util/List;->iterator()Ljava/util/Iterator;
@@ -1690,7 +1741,7 @@
 
     move-result v4
 
-    if-eqz v4, :cond_b
+    if-eqz v4, :cond_c
 
     invoke-interface {v12}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
@@ -1731,7 +1782,7 @@
     .end local v12           #i$:Ljava/util/Iterator;
     .end local v14           #user:Landroid/content/pm/UserInfo;
     .end local v15           #userId:I
-    :cond_b
+    :cond_c
     iget v4, v3, Lcom/android/server/pm/PackageSetting;->appId:I
 
     move-object/from16 v0, p0
@@ -1744,7 +1795,7 @@
 
     .line 478
     .end local v16           #users:Ljava/util/List;,"Ljava/util/List<Landroid/content/pm/UserInfo;>;"
-    :cond_c
+    :cond_d
     move-object/from16 v0, p0
 
     invoke-direct {v0, v3}, Lcom/android/server/pm/Settings;->newUserIdLPw(Ljava/lang/Object;)I
@@ -1757,8 +1808,8 @@
 
     .line 487
     .end local v11           #dis:Lcom/android/server/pm/PackageSetting;
-    :cond_d
-    if-eqz p11, :cond_e
+    :cond_e
+    if-eqz p11, :cond_f
 
     .line 490
     move-object/from16 v0, p0
@@ -1769,7 +1820,7 @@
 
     invoke-direct {v0, v3, v1, v2}, Lcom/android/server/pm/Settings;->addPackageSettingLPw(Lcom/android/server/pm/PackageSetting;Ljava/lang/String;Lcom/android/server/pm/SharedUserSetting;)V
 
-    :cond_e
+    :cond_f
     move-object v4, v3
 
     .line 493
@@ -9220,6 +9271,57 @@
     iget-boolean v3, p1, Landroid/content/pm/ComponentInfo;->enabled:Z
 
     goto :goto_0
+.end method
+
+.method isThirdBaiduApps(Ljava/lang/String;)Z
+    .locals 5
+    .parameter "pkg"
+
+    .prologue
+    .line 176
+    iget-object v0, p0, Lcom/android/server/pm/Settings;->mThirdBaiduApps:[Ljava/lang/String;
+
+    .local v0, arr$:[Ljava/lang/String;
+    array-length v2, v0
+
+    .local v2, len$:I
+    const/4 v1, 0x0
+
+    .local v1, i$:I
+    :goto_0
+    if-ge v1, v2, :cond_1
+
+    aget-object v3, v0, v1
+
+    .line 177
+    .local v3, str:Ljava/lang/String;
+    invoke-virtual {v3, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_0
+
+    .line 178
+    const/4 v4, 0x1
+
+    .line 181
+    .end local v3           #str:Ljava/lang/String;
+    :goto_1
+    return v4
+
+    .line 176
+    .restart local v3       #str:Ljava/lang/String;
+    :cond_0
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_0
+
+    .line 181
+    .end local v3           #str:Ljava/lang/String;
+    :cond_1
+    const/4 v4, 0x0
+
+    goto :goto_1
 .end method
 
 .method peekPackageLPr(Ljava/lang/String;)Lcom/android/server/pm/PackageSetting;

@@ -25,7 +25,7 @@
 
 .field private static final DEFAULT_IDLE_MS:J = 0xdbba0L
 
-.field private static final ICON_NETWORKS_AVAILABLE:I = 0x1080518
+.field private static final ICON_NETWORKS_AVAILABLE:I = #drawable@stat_notify_wifi_in_range#t
 
 .field private static final IDLE_REQUEST:I = 0x0
 
@@ -155,6 +155,8 @@
 
 .field private mWifiEnabled:Z
 
+.field private mWifiOffForQb:Z
+
 .field private final mWifiStateMachine:Landroid/net/wifi/WifiStateMachine;
 
 .field private mWifiStateMachineChannel:Lcom/android/internal/util/AsyncChannel;
@@ -245,6 +247,8 @@
     iput-object v3, p0, Lcom/android/server/WifiService;->mClients:Ljava/util/List;
 
     .line 358
+    iput-boolean v6, p0, Lcom/android/server/WifiService;->mWifiOffForQb:Z
+    
     new-instance v3, Landroid/os/WorkSource;
 
     invoke-direct {v3}, Landroid/os/WorkSource;-><init>()V
@@ -871,7 +875,7 @@
     invoke-direct {p0, p1}, Lcom/android/server/WifiService;->noteAcquireWifiLock(Lcom/android/server/WifiService$WifiLock;)V
 
     .line 1364
-    iget v3, p1, Lcom/android/server/WifiService$DeathRecipient;->mMode:I
+    iget v3, p1, Lcom/android/server/WifiService$WifiLock;->mMode:I
 
     packed-switch v3, :pswitch_data_0
 
@@ -1478,7 +1482,7 @@
 
     .prologue
     .line 1333
-    iget v0, p1, Lcom/android/server/WifiService$DeathRecipient;->mMode:I
+    iget v0, p1, Lcom/android/server/WifiService$WifiLock;->mMode:I
 
     packed-switch v0, :pswitch_data_0
 
@@ -1490,7 +1494,7 @@
     :pswitch_0
     iget-object v0, p0, Lcom/android/server/WifiService;->mBatteryStats:Lcom/android/internal/app/IBatteryStats;
 
-    iget-object v1, p1, Lcom/android/server/WifiService$DeathRecipient;->mWorkSource:Landroid/os/WorkSource;
+    iget-object v1, p1, Lcom/android/server/WifiService$WifiLock;->mWorkSource:Landroid/os/WorkSource;
 
     invoke-interface {v0, v1}, Lcom/android/internal/app/IBatteryStats;->noteFullWifiLockAcquiredFromSource(Landroid/os/WorkSource;)V
 
@@ -1500,7 +1504,7 @@
     :pswitch_1
     iget-object v0, p0, Lcom/android/server/WifiService;->mBatteryStats:Lcom/android/internal/app/IBatteryStats;
 
-    iget-object v1, p1, Lcom/android/server/WifiService$DeathRecipient;->mWorkSource:Landroid/os/WorkSource;
+    iget-object v1, p1, Lcom/android/server/WifiService$WifiLock;->mWorkSource:Landroid/os/WorkSource;
 
     invoke-interface {v0, v1}, Lcom/android/internal/app/IBatteryStats;->noteScanWifiLockAcquiredFromSource(Landroid/os/WorkSource;)V
 
@@ -1526,7 +1530,7 @@
 
     .prologue
     .line 1345
-    iget v0, p1, Lcom/android/server/WifiService$DeathRecipient;->mMode:I
+    iget v0, p1, Lcom/android/server/WifiService$WifiLock;->mMode:I
 
     packed-switch v0, :pswitch_data_0
 
@@ -1538,7 +1542,7 @@
     :pswitch_0
     iget-object v0, p0, Lcom/android/server/WifiService;->mBatteryStats:Lcom/android/internal/app/IBatteryStats;
 
-    iget-object v1, p1, Lcom/android/server/WifiService$DeathRecipient;->mWorkSource:Landroid/os/WorkSource;
+    iget-object v1, p1, Lcom/android/server/WifiService$WifiLock;->mWorkSource:Landroid/os/WorkSource;
 
     invoke-interface {v0, v1}, Lcom/android/internal/app/IBatteryStats;->noteFullWifiLockReleasedFromSource(Landroid/os/WorkSource;)V
 
@@ -1548,7 +1552,7 @@
     :pswitch_1
     iget-object v0, p0, Lcom/android/server/WifiService;->mBatteryStats:Lcom/android/internal/app/IBatteryStats;
 
-    iget-object v1, p1, Lcom/android/server/WifiService$DeathRecipient;->mWorkSource:Landroid/os/WorkSource;
+    iget-object v1, p1, Lcom/android/server/WifiService$WifiLock;->mWorkSource:Landroid/os/WorkSource;
 
     invoke-interface {v0, v1}, Lcom/android/internal/app/IBatteryStats;->noteScanWifiLockReleasedFromSource(Landroid/os/WorkSource;)V
 
@@ -1803,7 +1807,7 @@
     invoke-direct {p0, v3}, Lcom/android/server/WifiService;->noteReleaseWifiLock(Lcom/android/server/WifiService$WifiLock;)V
 
     .line 1437
-    iget v4, v3, Lcom/android/server/WifiService$DeathRecipient;->mMode:I
+    iget v4, v3, Lcom/android/server/WifiService$WifiLock;->mMode:I
 
     packed-switch v4, :pswitch_data_0
 
@@ -2036,7 +2040,7 @@
 
     check-cast v1, Lcom/android/server/WifiService$WifiLock;
 
-    iget-object v1, v1, Lcom/android/server/WifiService$DeathRecipient;->mWorkSource:Landroid/os/WorkSource;
+    iget-object v1, v1, Lcom/android/server/WifiService$WifiLock;->mWorkSource:Landroid/os/WorkSource;
 
     invoke-virtual {v2, v1}, Landroid/os/WorkSource;->add(Landroid/os/WorkSource;)Z
 
@@ -2119,7 +2123,7 @@
     .prologue
     const/4 v8, 0x0
 
-    const v7, 0x1080518
+    const v7, #drawable@stat_notify_wifi_in_range#t
 
     .line 1706
     if-nez p1, :cond_1
@@ -2218,7 +2222,7 @@
 
     move-result-object v3
 
-    const v4, 0x1130011
+    const v4, #plurals@wifi_available#t
 
     invoke-virtual {v3, v4, p2}, Landroid/content/res/Resources;->getQuantityText(II)Ljava/lang/CharSequence;
 
@@ -2232,7 +2236,7 @@
 
     move-result-object v3
 
-    const v4, 0x1130012
+    const v4, #plurals@wifi_available_detailed#t
 
     invoke-virtual {v3, v4, p2}, Landroid/content/res/Resources;->getQuantityText(II)Ljava/lang/CharSequence;
 
@@ -2480,6 +2484,10 @@
 
     if-eqz v5, :cond_9
 
+    iget-boolean v5, p0, Lcom/android/server/WifiService;->mWifiOffForQb:Z
+    
+    if-nez v5, :cond_9
+    
     .line 1117
     if-eqz v2, :cond_8
 
@@ -3934,7 +3942,7 @@
 
     move-result-object v0
 
-    const v1, 0x111000e
+    const v1, #bool@config_wifi_dual_band_support#t
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
 
@@ -4573,6 +4581,104 @@
     throw v2
 .end method
 
+.method public declared-synchronized setWifiEnabledForQb(Z)Z
+    .locals 3
+    .parameter "enable"
+
+    .prologue
+    const/4 v2, 0x1
+
+    .line 618
+    monitor-enter p0
+
+    :try_start_0
+    invoke-direct {p0}, Lcom/android/server/WifiService;->enforceChangePermission()V
+
+    .line 620
+    if-eqz p1, :cond_1
+
+    .line 621
+    invoke-direct {p0}, Lcom/android/server/WifiService;->reportStartWorkSource()V
+
+    .line 622
+    const/4 v0, 0x0
+
+    iput-boolean v0, p0, Lcom/android/server/WifiService;->mWifiOffForQb:Z
+
+    .line 627
+    :goto_0
+    iget-object v0, p0, Lcom/android/server/WifiService;->mWifiStateMachine:Landroid/net/wifi/WifiStateMachine;
+
+    invoke-virtual {v0, p1}, Landroid/net/wifi/WifiStateMachine;->setWifiEnabled(Z)V
+
+    .line 629
+    if-eqz p1, :cond_2
+
+    .line 630
+    iget-boolean v0, p0, Lcom/android/server/WifiService;->mIsReceiverRegistered:Z
+
+    if-nez v0, :cond_0
+
+    .line 631
+    invoke-direct {p0}, Lcom/android/server/WifiService;->registerForBroadcasts()V
+
+    .line 632
+    const/4 v0, 0x1
+
+    iput-boolean v0, p0, Lcom/android/server/WifiService;->mIsReceiverRegistered:Z
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    .line 639
+    :cond_0
+    :goto_1
+    monitor-exit p0
+
+    return v2
+
+    .line 624
+    :cond_1
+    const/4 v0, 0x1
+
+    :try_start_1
+    iput-boolean v0, p0, Lcom/android/server/WifiService;->mWifiOffForQb:Z
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    goto :goto_0
+
+    .line 618
+    :catchall_0
+    move-exception v0
+
+    monitor-exit p0
+
+    throw v0
+
+    .line 634
+    :cond_2
+    :try_start_2
+    iget-boolean v0, p0, Lcom/android/server/WifiService;->mIsReceiverRegistered:Z
+
+    if-eqz v0, :cond_0
+
+    .line 635
+    iget-object v0, p0, Lcom/android/server/WifiService;->mContext:Landroid/content/Context;
+
+    iget-object v1, p0, Lcom/android/server/WifiService;->mReceiver:Landroid/content/BroadcastReceiver;
+
+    invoke-virtual {v0, v1}, Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
+
+    .line 636
+    const/4 v0, 0x0
+
+    iput-boolean v0, p0, Lcom/android/server/WifiService;->mIsReceiverRegistered:Z
+    :try_end_2
+    .catchall {:try_start_2 .. :try_end_2} :catchall_0
+
+    goto :goto_1
+.end method
+
 .method public startScan(Z)V
     .locals 6
     .parameter "forceActive"
@@ -4843,7 +4949,7 @@
     invoke-direct {v6, p2}, Landroid/os/WorkSource;-><init>(Landroid/os/WorkSource;)V
 
     :goto_1
-    iput-object v6, v5, Lcom/android/server/WifiService$DeathRecipient;->mWorkSource:Landroid/os/WorkSource;
+    iput-object v6, v5, Lcom/android/server/WifiService$WifiLock;->mWorkSource:Landroid/os/WorkSource;
 
     .line 1409
     invoke-direct {p0, v5}, Lcom/android/server/WifiService;->noteAcquireWifiLock(Lcom/android/server/WifiService$WifiLock;)V

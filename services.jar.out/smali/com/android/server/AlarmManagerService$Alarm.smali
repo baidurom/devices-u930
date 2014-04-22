@@ -19,9 +19,13 @@
 
 .field public operation:Landroid/app/PendingIntent;
 
+.field public pid:I
+
 .field public repeatInterval:J
 
 .field public type:I
+
+.field public uid:I
 
 .field public when:J
 
@@ -47,7 +51,19 @@
 
     iput-object v0, p0, Lcom/android/server/AlarmManagerService$Alarm;->operation:Landroid/app/PendingIntent;
 
+    invoke-static {}, Landroid/os/Binder;->getCallingUid()I
+    
+    move-result v0
+    
+    iput v0, p0, Lcom/android/server/AlarmManagerService$Alarm;->uid:I
+    
     .line 646
+    invoke-static {}, Landroid/os/Binder;->getCallingPid()I
+    
+    move-result v0
+    
+    iput v0, p0, Lcom/android/server/AlarmManagerService$Alarm;->pid:I
+    
     return-void
 .end method
 

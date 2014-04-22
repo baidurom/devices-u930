@@ -12,6 +12,7 @@
     value = {
         Lcom/android/server/wm/WindowManagerService$OnHardKeyboardStatusChangeListener;,
         Lcom/android/server/wm/WindowManagerService$H;,
+        Lcom/android/server/wm/WindowManagerService$QuickbootBroadcastReceiver;,
         Lcom/android/server/wm/WindowManagerService$PolicyThread;,
         Lcom/android/server/wm/WindowManagerService$WMThread;,
         Lcom/android/server/wm/WindowManagerService$WindowChangeListener;,
@@ -430,6 +431,8 @@
 
 .field mLowerWallpaperTarget:Lcom/android/server/wm/WindowState;
 
+.field private mNeedResetRotation:Z
+
 .field mNextAppTransition:I
 
 .field mNextAppTransitionCallback:Landroid/os/IRemoteCallback;
@@ -485,6 +488,8 @@
 .field final mPolicy:Landroid/view/WindowManagerPolicy;
 
 .field mPowerManager:Lcom/android/server/PowerManagerService;
+
+.field private mQbReceiver:Landroid/content/BroadcastReceiver;
 
 .field final mRealDisplayMetrics:Landroid/util/DisplayMetrics;
 
@@ -701,6 +706,10 @@
     iput-object v3, p0, Lcom/android/server/wm/WindowManagerService;->mKeyguardTokenWatcher:Landroid/os/TokenWatcher;
 
     .line 310
+    const/4 v3, 0x0
+    
+    iput-boolean v3, p0, Lcom/android/server/wm/WindowManagerService;->mNeedResetRotation:Z
+    
     new-instance v3, Lcom/android/server/wm/WindowManagerService$2;
 
     invoke-direct {v3, p0}, Lcom/android/server/wm/WindowManagerService$2;-><init>(Lcom/android/server/wm/WindowManagerService;)V
@@ -1251,6 +1260,14 @@
     iput-object v3, p0, Lcom/android/server/wm/WindowManagerService;->mTempConfiguration:Landroid/content/res/Configuration;
 
     .line 6682
+    new-instance v3, Lcom/android/server/wm/WindowManagerService$QuickbootBroadcastReceiver;
+    
+    const/4 v4, 0x0
+    
+    invoke-direct {v3, p0, v4}, Lcom/android/server/wm/WindowManagerService$QuickbootBroadcastReceiver;-><init>(Lcom/android/server/wm/WindowManagerService;Lcom/android/server/wm/WindowManagerService$1;)V
+    
+    iput-object v3, p0, Lcom/android/server/wm/WindowManagerService;->mQbReceiver:Landroid/content/BroadcastReceiver;
+    
     new-instance v3, Lcom/android/server/wm/InputMonitor;
 
     invoke-direct {v3, p0}, Lcom/android/server/wm/InputMonitor;-><init>(Lcom/android/server/wm/WindowManagerService;)V
@@ -1279,7 +1296,7 @@
 
     move-result-object v3
 
-    const v4, 0x1110007
+    const v4, #bool@config_sf_limitedAlpha#t
 
     invoke-virtual {v3, v4}, Landroid/content/res/Resources;->getBoolean(I)Z
 
@@ -1420,6 +1437,8 @@
     invoke-virtual {v3, v4, v0}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
     .line 908
+    invoke-direct {p0}, Lcom/android/server/wm/WindowManagerService;->registerQbReceiver()V
+    
     const v3, 0x2000000a
 
     const-string v4, "KEEP_SCREEN_ON_FLAG"
@@ -1604,6 +1623,29 @@
     .prologue
     .line 156
     iput p1, p0, Lcom/android/server/wm/WindowManagerService;->mAllowDisableKeyguard:I
+
+    return p1
+.end method
+
+.method static synthetic access$300(Lcom/android/server/wm/WindowManagerService;)Z
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 156
+    iget-boolean v0, p0, Lcom/android/server/wm/WindowManagerService;->mNeedResetRotation:Z
+
+    return v0
+.end method
+
+.method static synthetic access$302(Lcom/android/server/wm/WindowManagerService;Z)Z
+    .locals 0
+    .parameter "x0"
+    .parameter "x1"
+
+    .prologue
+    .line 156
+    iput-boolean p1, p0, Lcom/android/server/wm/WindowManagerService;->mNeedResetRotation:Z
 
     return p1
 .end method
@@ -4072,7 +4114,7 @@
     .line 3193
     iget-object v2, p0, Lcom/android/server/wm/WindowManagerService;->mContext:Landroid/content/Context;
 
-    const v4, 0x10c0003
+    const v4, #interpolator@decelerate_cubic#t
 
     invoke-static {v2, v4}, Landroid/view/animation/AnimationUtils;->loadInterpolator(Landroid/content/Context;I)Landroid/view/animation/Interpolator;
 
@@ -4335,7 +4377,7 @@
 
     iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mContext:Landroid/content/Context;
 
-    const v5, 0x10c0001
+    const v5, #interpolator@decelerate_quad#t
 
     invoke-static {v3, v5}, Landroid/view/animation/AnimationUtils;->loadInterpolator(Landroid/content/Context;I)Landroid/view/animation/Interpolator;
 
@@ -7193,7 +7235,7 @@
 
     iget-object v2, v0, Lcom/android/server/wm/WindowManagerService;->mContext:Landroid/content/Context;
 
-    const v8, 0x10a0068
+    const v8, #anim@window_move_from_decor#t
 
     invoke-static {v2, v8}, Landroid/view/animation/AnimationUtils;->loadAnimation(Landroid/content/Context;I)Landroid/view/animation/Animation;
 
@@ -10247,6 +10289,37 @@
 
     .restart local v6       #screenLayoutLong:Z
     goto :goto_0
+.end method
+
+.method private registerQbReceiver()V
+    .locals 3
+
+    .prologue
+    .line 960
+    new-instance v0, Landroid/content/IntentFilter;
+
+    invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
+
+    .line 961
+    .local v0, filter:Landroid/content/IntentFilter;
+    const-string v1, "android.intent.action.ACTION_QUICKBOOT_SHUTDOWN"
+
+    invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 962
+    const-string v1, "android.intent.action.SCREEN_OFF"
+
+    invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 963
+    iget-object v1, p0, Lcom/android/server/wm/WindowManagerService;->mContext:Landroid/content/Context;
+
+    iget-object v2, p0, Lcom/android/server/wm/WindowManagerService;->mQbReceiver:Landroid/content/BroadcastReceiver;
+
+    invoke-virtual {v1, v2, v0}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
+
+    .line 964
+    return-void
 .end method
 
 .method private removeAppTokensLocked(Ljava/util/List;)V
@@ -26730,7 +26803,7 @@
 
     move-result-object v13
 
-    const v15, 0x1110024
+    const v15, #bool@config_enableWallpaperService#t
 
     invoke-virtual {v13, v15}, Landroid/content/res/Resources;->getBoolean(I)Z
 

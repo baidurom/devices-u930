@@ -73,7 +73,7 @@
 
     move-result-object v0
 
-    const v1, 0x10e001c
+    const v1, #integer@config_notificationsBatteryLowARGB#t
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getInteger(I)I
 
@@ -91,7 +91,7 @@
 
     move-result-object v0
 
-    const v1, 0x10e001d
+    const v1, #integer@config_notificationsBatteryMediumARGB#t
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getInteger(I)I
 
@@ -109,7 +109,7 @@
 
     move-result-object v0
 
-    const v1, 0x10e001e
+    const v1, #integer@config_notificationsBatteryFullARGB#t
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getInteger(I)I
 
@@ -127,7 +127,7 @@
 
     move-result-object v0
 
-    const v1, 0x10e001f
+    const v1, #integer@config_notificationsBatteryLedOn#t
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getInteger(I)I
 
@@ -145,7 +145,7 @@
 
     move-result-object v0
 
-    const v1, 0x10e0020
+    const v1, #integer@config_notificationsBatteryLedOff#t
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getInteger(I)I
 
@@ -185,6 +185,8 @@
     .locals 7
 
     .prologue
+    const/4 v4, 0x5
+    
     const/4 v3, 0x2
 
     .line 609
@@ -247,19 +249,19 @@
 
     .line 620
     :cond_1
-    if-ne v1, v3, :cond_4
+    if-eq v1, v3, :cond_2
 
-    .line 622
-    const/4 v2, 0x5
-
-    if-eq v1, v2, :cond_2
-
-    const/16 v2, 0x64
-
-    if-ne v0, v2, :cond_3
+    if-ne v1, v4, :cond_5
 
     .line 624
     :cond_2
+    if-eq v1, v4, :cond_3
+    
+    const/16 v2, 0x5a
+    
+    if-lt v0, v2, :cond_4
+    
+    :cond_3
     iget-object v2, p0, Lcom/android/server/BatteryService$Led;->mBatteryLight:Lcom/android/server/LightsService$Light;
 
     iget v3, p0, Lcom/android/server/BatteryService$Led;->mBatteryFullARGB:I
@@ -269,7 +271,7 @@
     goto :goto_0
 
     .line 627
-    :cond_3
+    :cond_4
     iget-object v2, p0, Lcom/android/server/BatteryService$Led;->mBatteryLight:Lcom/android/server/LightsService$Light;
 
     iget v3, p0, Lcom/android/server/BatteryService$Led;->mBatteryMediumARGB:I
@@ -279,10 +281,130 @@
     goto :goto_0
 
     .line 631
-    :cond_4
+    :cond_5
     iget-object v2, p0, Lcom/android/server/BatteryService$Led;->mBatteryLight:Lcom/android/server/LightsService$Light;
 
     invoke-virtual {v2}, Lcom/android/server/LightsService$Light;->turnOff()V
+
+    goto :goto_0
+.end method
+
+.method updateQbLights()V
+    .locals 4
+
+    .prologue
+    .line 693
+    iget-object v1, p0, Lcom/android/server/BatteryService$Led;->this$0:Lcom/android/server/BatteryService;
+
+    #getter for: Lcom/android/server/BatteryService;->mBatteryLevel:I
+    invoke-static {v1}, Lcom/android/server/BatteryService;->access$600(Lcom/android/server/BatteryService;)I
+
+    move-result v0
+
+    .line 694
+    .local v0, level:I
+    invoke-static {}, Lcom/android/server/BatteryService;->access$100()Ljava/lang/String;
+
+    move-result-object v1
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "updateQbLights: Current batterylevel="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, ", plugtype="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lcom/android/server/BatteryService$Led;->this$0:Lcom/android/server/BatteryService;
+
+    #getter for: Lcom/android/server/BatteryService;->mPlugType:I
+    invoke-static {v3}, Lcom/android/server/BatteryService;->access$401(Lcom/android/server/BatteryService;)I
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 696
+    iget-object v1, p0, Lcom/android/server/BatteryService$Led;->this$0:Lcom/android/server/BatteryService;
+
+    #getter for: Lcom/android/server/BatteryService;->mPlugType:I
+    invoke-static {v1}, Lcom/android/server/BatteryService;->access$401(Lcom/android/server/BatteryService;)I
+
+    move-result v1
+
+    if-nez v1, :cond_0
+
+    .line 698
+    iget-object v1, p0, Lcom/android/server/BatteryService$Led;->mBatteryLight:Lcom/android/server/LightsService$Light;
+
+    invoke-virtual {v1}, Lcom/android/server/LightsService$Light;->turnOff()V
+
+    .line 711
+    :goto_0
+    return-void
+
+    .line 700
+    :cond_0
+    iget-object v1, p0, Lcom/android/server/BatteryService$Led;->this$0:Lcom/android/server/BatteryService;
+
+    #getter for: Lcom/android/server/BatteryService;->mLowBatteryWarningLevel:I
+    invoke-static {v1}, Lcom/android/server/BatteryService;->access$800(Lcom/android/server/BatteryService;)I
+
+    move-result v1
+
+    if-ge v0, v1, :cond_1
+
+    .line 702
+    iget-object v1, p0, Lcom/android/server/BatteryService$Led;->mBatteryLight:Lcom/android/server/LightsService$Light;
+
+    iget v2, p0, Lcom/android/server/BatteryService$Led;->mBatteryLowARGB:I
+
+    invoke-virtual {v1, v2}, Lcom/android/server/LightsService$Light;->setColor(I)V
+
+    goto :goto_0
+
+    .line 703
+    :cond_1
+    const/16 v1, 0x5a
+
+    if-lt v0, v1, :cond_2
+
+    .line 705
+    iget-object v1, p0, Lcom/android/server/BatteryService$Led;->mBatteryLight:Lcom/android/server/LightsService$Light;
+
+    iget v2, p0, Lcom/android/server/BatteryService$Led;->mBatteryFullARGB:I
+
+    invoke-virtual {v1, v2}, Lcom/android/server/LightsService$Light;->setColor(I)V
+
+    goto :goto_0
+
+    .line 708
+    :cond_2
+    iget-object v1, p0, Lcom/android/server/BatteryService$Led;->mBatteryLight:Lcom/android/server/LightsService$Light;
+
+    iget v2, p0, Lcom/android/server/BatteryService$Led;->mBatteryMediumARGB:I
+
+    invoke-virtual {v1, v2}, Lcom/android/server/LightsService$Light;->setColor(I)V
 
     goto :goto_0
 .end method

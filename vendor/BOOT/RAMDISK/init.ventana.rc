@@ -20,7 +20,11 @@ on early-init
     symlink /mnt/usbdrive /usbdrive
 
 on fs
-    mount ext4 /dev/block/platform/sdhci-tegra.3/by-name/APP /system wait ro
+    mount ext4 /dev/block/platform/sdhci-tegra.3/by-name/APP /system wait rw
+    #change mode for su
+    chown root root /system/xbin/su
+    chmod 6755 /system/xbin/su
+    mount ext4 /dev/block/platform/sdhci-tegra.3/by-name/APP /system wait ro remount
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
     mount ext4 /dev/block/platform/sdhci-tegra.3/by-name/UDA /data wait noatime nosuid nodev journal_async_commit,data=writeback,nodelalloc,errors=panic
     mount ext4 /dev/block/platform/sdhci-tegra.3/by-name/CAC /cache wait noatime nosuid nodev journal_async_commit,data=writeback,nodelalloc,errors=panic

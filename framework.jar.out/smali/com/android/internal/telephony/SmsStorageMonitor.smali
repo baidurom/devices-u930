@@ -26,6 +26,8 @@
 
 .field mStorageAvailable:Z
 
+.field private mStorageNearlyFull:Z
+
 .field private mWakeLock:Landroid/os/PowerManager$WakeLock;
 
 
@@ -46,6 +48,10 @@
     iput-boolean v2, p0, Lcom/android/internal/telephony/SmsStorageMonitor;->mStorageAvailable:Z
 
     .line 150
+    const/4 v1, 0x0
+    
+    iput-boolean v1, p0, Lcom/android/internal/telephony/SmsStorageMonitor;->mStorageNearlyFull:Z
+    
     new-instance v1, Lcom/android/internal/telephony/SmsStorageMonitor$1;
 
     invoke-direct {v1, p0}, Lcom/android/internal/telephony/SmsStorageMonitor$1;-><init>(Lcom/android/internal/telephony/SmsStorageMonitor;)V
@@ -96,6 +102,14 @@
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
     .line 84
+    const-string v1, "android.intent.action.DEVICE_STORAGE_NEARLY_FULL"
+    
+    invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+    
+    const-string v1, "android.intent.action.DEVICE_STORAGE_NOT_NEARLY_FULL"
+    
+    invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+    
     iget-object v1, p0, Lcom/android/internal/telephony/SmsStorageMonitor;->mContext:Landroid/content/Context;
 
     iget-object v2, p0, Lcom/android/internal/telephony/SmsStorageMonitor;->mResultReceiver:Landroid/content/BroadcastReceiver;
@@ -104,6 +118,30 @@
 
     .line 85
     return-void
+.end method
+
+.method static synthetic access$002(Lcom/android/internal/telephony/SmsStorageMonitor;Z)Z
+    .locals 0
+    .parameter "x0"
+    .parameter "x1"
+
+    .prologue
+    .line 37
+    iput-boolean p1, p0, Lcom/android/internal/telephony/SmsStorageMonitor;->mStorageAvailable:Z
+
+    return p1
+.end method
+
+.method static synthetic access$102(Lcom/android/internal/telephony/SmsStorageMonitor;Z)Z
+    .locals 0
+    .parameter "x0"
+    .parameter "x1"
+
+    .prologue
+    .line 37
+    iput-boolean p1, p0, Lcom/android/internal/telephony/SmsStorageMonitor;->mStorageNearlyFull:Z
+
+    return p1
 .end method
 
 .method private createWakelock()V
@@ -336,6 +374,16 @@
     .prologue
     .line 147
     iget-boolean v0, p0, Lcom/android/internal/telephony/SmsStorageMonitor;->mStorageAvailable:Z
+
+    return v0
+.end method
+
+.method public isStorageNearlyFull()Z
+    .locals 1
+
+    .prologue
+    .line 158
+    iget-boolean v0, p0, Lcom/android/internal/telephony/SmsStorageMonitor;->mStorageNearlyFull:Z
 
     return v0
 .end method

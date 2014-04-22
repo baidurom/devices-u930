@@ -54,11 +54,15 @@
 
 .field static final TRANSACTION_setKeyboardAutoLightValue:I = 0x14
 
+.field static final TRANSACTION_setButtonLight:I = 0x15
+
 .field static final TRANSACTION_setMaximumScreenOffTimeount:I = 0xc
 
 .field static final TRANSACTION_setPokeLock:I = 0x9
 
 .field static final TRANSACTION_setStayOnSetting:I = 0xb
+
+.field static final TRANSACTION_shutdown:I = 0x16
 
 .field static final TRANSACTION_updateWakeLockWorkSource:I = 0x2
 
@@ -793,8 +797,84 @@
     invoke-virtual {p3, v6}, Landroid/os/Parcel;->writeInt(I)V
 
     goto/16 :goto_0
+    
+    .end local v0           #_arg0:I
+    .end local v6           #_result:I
+    :sswitch_15
+    const-string v8, "android.os.IPowerManager"
 
+    invoke-virtual {p2, v8}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
+
+    .line 255
+    invoke-virtual {p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v0
+
+    .line 256
+    .local v0, _arg0:I
+    invoke-virtual {p0, v0}, Landroid/os/IPowerManager$Stub;->setButtonLight(I)V
+
+    .line 257
+    invoke-virtual {p3}, Landroid/os/Parcel;->writeNoException()V
+
+    goto/16 :goto_0
+
+    .end local v0           #_arg0:I
     .line 39
+    :sswitch_16
+    const-string v9, "android.os.IPowerManager"
+
+    invoke-virtual {p2, v9}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
+
+    .line 217
+    invoke-virtual {p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v9
+
+    if-eqz v9, :cond_8
+
+    move v0, v7
+
+    .line 219
+    .local v0, _arg0:Z
+    :goto_8
+    invoke-virtual {p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v9
+
+    if-eqz v9, :cond_9
+
+    move v2, v7
+
+    .line 220
+    .local v2, _arg1:Z
+    :goto_9
+    invoke-virtual {p0, v0, v2}, Landroid/os/IPowerManager$Stub;->shutdown(ZZ)V
+
+    .line 221
+    invoke-virtual {p3}, Landroid/os/Parcel;->writeNoException()V
+
+    goto/16 :goto_0
+
+    .end local v0           #_arg0:Z
+    .end local v2           #_arg1:Z
+    :cond_8
+    move v0, v8
+
+    .line 217
+    goto :goto_8
+
+    .restart local v0       #_arg0:Z
+    :cond_9
+    move v2, v8
+
+    .line 219
+    goto :goto_9
+
+    .line 226
+    .end local v0           #_arg0:Z
+    .end local v2           #_arg1:Z
+
     :sswitch_data_0
     .sparse-switch
         0x1 -> :sswitch_1
@@ -817,6 +897,8 @@
         0x12 -> :sswitch_12
         0x13 -> :sswitch_13
         0x14 -> :sswitch_14
+	0x15 -> :sswitch_15
+	0x16 -> :sswitch_16
         0x5f4e5446 -> :sswitch_0
     .end sparse-switch
 .end method

@@ -323,6 +323,14 @@
     .end annotation
 .end method
 
+.method public abstract getScAddress()Ljava/lang/String;
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+.end method
+
 .method public abstract getVoiceMessageCount()I
     .annotation system Ldalvik/annotation/Throws;
         value = {
@@ -452,6 +460,14 @@
 .end method
 
 .method public abstract setSmscAddress(Ljava/lang/String;)V
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+.end method
+
+.method public abstract setScAddress(Ljava/lang/String;)V
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Landroid/os/RemoteException;

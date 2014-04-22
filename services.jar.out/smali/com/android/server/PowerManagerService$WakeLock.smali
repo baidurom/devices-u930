@@ -24,6 +24,8 @@
 
 .field final flags:I
 
+.field isReleasedInternal:Z
+
 .field minState:I
 
 .field final monitorType:I
@@ -50,10 +52,10 @@
     .parameter "p"
 
     .prologue
-    const/4 v2, 0x0
-
     const/4 v3, 0x1
 
+    const/4 v2, 0x0
+    
     .line 738
     iput-object p1, p0, Lcom/android/server/PowerManagerService$WakeLock;->this$0:Lcom/android/server/PowerManagerService;
 
@@ -64,6 +66,8 @@
     iput-boolean v3, p0, Lcom/android/server/PowerManagerService$WakeLock;->activated:Z
 
     .line 740
+    iput-boolean v2, p0, Lcom/android/server/PowerManagerService$WakeLock;->isReleasedInternal:Z
+    
     iput p2, p0, Lcom/android/server/PowerManagerService$WakeLock;->flags:I
 
     .line 741

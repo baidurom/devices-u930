@@ -143,7 +143,18 @@
     return-object v0
 .end method
 
-.method static synthetic access$100(Lcom/android/server/LightsService;)I
+.method static synthetic access$100(Lcom/android/server/LightsService;)Landroid/content/Context;
+    .locals 1
+    .parameter "x0"
+    
+    .prologue
+    
+    iget-object v0, p0, Lcom/android/server/LightsService;->mContext:Landroid/content/Context;
+    
+    return-object v0
+.end method
+
+.method static synthetic access$200(Lcom/android/server/LightsService;)I
     .locals 1
     .parameter "x0"
 
@@ -154,7 +165,7 @@
     return v0
 .end method
 
-.method static synthetic access$200(IIIIIII)V
+.method static synthetic access$300(IIIIIII)V
     .locals 0
     .parameter "x0"
     .parameter "x1"
@@ -169,17 +180,10 @@
     invoke-static/range {p0 .. p6}, Lcom/android/server/LightsService;->setLight_native(IIIIIII)V
 
     return-void
-.end method
 
-.method static synthetic access$300(Lcom/android/server/LightsService;)Landroid/content/Context;
-    .locals 1
-    .parameter "x0"
 
-    .prologue
     .line 30
-    iget-object v0, p0, Lcom/android/server/LightsService;->mContext:Landroid/content/Context;
 
-    return-object v0
 .end method
 
 .method private static native finalize_native(I)V

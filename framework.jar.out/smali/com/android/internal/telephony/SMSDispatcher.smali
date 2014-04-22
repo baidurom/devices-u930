@@ -83,7 +83,7 @@
 
 .field private mPendingTrackerCount:I
 
-.field protected final mPhone:Lcom/android/internal/telephony/Phone;
+.field protected mPhone:Lcom/android/internal/telephony/PhoneBase;
 
 .field protected mRemainingMessages:I
 
@@ -243,7 +243,7 @@
     iput-object v0, p0, Lcom/android/internal/telephony/SMSDispatcher;->TrafficMonitorMessageReceiver:Landroid/content/BroadcastReceiver;
 
     .line 190
-    iput-object p1, p0, Lcom/android/internal/telephony/SMSDispatcher;->mPhone:Lcom/android/internal/telephony/Phone;
+    iput-object p1, p0, Lcom/android/internal/telephony/SMSDispatcher;->mPhone:Lcom/android/internal/telephony/PhoneBase;
 
     .line 191
     new-instance v0, Lcom/android/internal/telephony/WapPushOverSms;
@@ -761,7 +761,7 @@
 
     .line 1209
     .local v5, deliveryIntents:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/app/PendingIntent;>;"
-    iget-object v0, p0, Lcom/android/internal/telephony/SMSDispatcher;->mPhone:Lcom/android/internal/telephony/Phone;
+    iget-object v0, p0, Lcom/android/internal/telephony/SMSDispatcher;->mPhone:Lcom/android/internal/telephony/PhoneBase;
 
     invoke-interface {v0}, Lcom/android/internal/telephony/Phone;->getServiceState()Landroid/telephony/ServiceState;
 
@@ -1080,6 +1080,14 @@
 
     .line 514
     :cond_1
+    move-object/from16 v0, p1
+    
+    invoke-virtual {v0}, Lcom/android/internal/telephony/SmsMessageBase;->getDisplayOriginatingAddress()Ljava/lang/String;
+
+    move-result-object v0
+
+    sput-object v0, Lcom/baidu/internal/telephony/SMSPlugin;->msgAddress:Ljava/lang/String; 
+    
     iget-object v0, p0, Lcom/android/internal/telephony/SMSDispatcher;->mWapPush:Lcom/android/internal/telephony/WapPushOverSms;
 
     invoke-virtual/range {p1 .. p1}, Lcom/android/internal/telephony/SmsMessageBase;->getUserData()[B
@@ -1799,7 +1807,7 @@
 
     .line 411
     :cond_4
-    iget-object v8, p0, Lcom/android/internal/telephony/SMSDispatcher;->mPhone:Lcom/android/internal/telephony/Phone;
+    iget-object v8, p0, Lcom/android/internal/telephony/SMSDispatcher;->mPhone:Lcom/android/internal/telephony/PhoneBase;
 
     invoke-interface {v8}, Lcom/android/internal/telephony/Phone;->getServiceState()Landroid/telephony/ServiceState;
 
@@ -3439,6 +3447,8 @@
     if-ne v0, v3, :cond_f
 
     .line 670
+    sput-object p2, Lcom/baidu/internal/telephony/SMSPlugin;->msgAddress:Ljava/lang/String;
+    
     new-instance v19, Ljava/io/ByteArrayOutputStream;
 
     invoke-direct/range {v19 .. v19}, Ljava/io/ByteArrayOutputStream;-><init>()V
@@ -4006,7 +4016,7 @@
 
     .line 1109
     :cond_6
-    iget-object v2, p0, Lcom/android/internal/telephony/SMSDispatcher;->mPhone:Lcom/android/internal/telephony/Phone;
+    iget-object v2, p0, Lcom/android/internal/telephony/SMSDispatcher;->mPhone:Lcom/android/internal/telephony/PhoneBase;
 
     invoke-interface {v2}, Lcom/android/internal/telephony/Phone;->getServiceState()Landroid/telephony/ServiceState;
 
@@ -4053,7 +4063,7 @@
 .end method
 
 .method private prehandleMsg(Lcom/android/internal/telephony/SmsMessageBase;[[B)Z
-    .locals 3
+    .locals 4
     .parameter "sms"
     .parameter "pdus"
 
@@ -4100,7 +4110,13 @@
 
     move-result-object v2
 
-    invoke-static {v1, p2, v2}, Lcom/baidu/internal/telephony/SMSPlugin;->dispatchTrafficMonitorSmsPdu(Landroid/content/Context;[[BLjava/lang/String;)V
+    iget-object v3, p0, Lcom/android/internal/telephony/SMSDispatcher;->mPhone:Lcom/android/internal/telephony/PhoneBase;
+    
+    invoke-virtual {v3}, Lcom/android/internal/telephony/PhoneBase;->getSubscription()I
+    
+    move-result v3
+    
+    invoke-static {v1, p2, v2, v3}, Lcom/baidu/internal/telephony/SMSPlugin;->dispatchTrafficMonitorSmsPdu(Landroid/content/Context;[[BLjava/lang/String;I)V
 
     .line 1138
     sget-boolean v1, Lcom/baidu/internal/telephony/SMSPlugin;->discard:Z

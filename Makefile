@@ -2,37 +2,6 @@
 # Please use this file as the project Makefile reference
 
 ##############################################################################
-# Only for baidu, otherwise do not set USER
-#-----------------------------------------------------------------------------
-USER := baidu
-
-##############################################################################
-# This value defines the base source branch, only use for baidu server build.
-# when open this outside, delete this config
-# Support values: rom-mtk, baidu-4.0
-#-----------------------------------------------------------------------------
-BAIDU_BASE_BRANCH := rom-qc-4.1
-
-##############################################################################
-# This value defines which overlay should be choose, only use for baidu internal.
-# Support values: rom-mtk, baidu-4.0
-# when your product is mtk, you can choose rom-mtk, otherwise set it to baidu-4.0
-#-----------------------------------------------------------------------------
-BAIDU_FRAMEWORK_OVERLAY_TYPE := rom-qc-4.1
-
-##############################################################################
-# This value defines which base this project should choose, only for baidu internal.
-# Support values: S710, JRD77SS, YINS, YIGN
-#-----------------------------------------------------------------------------
-BAIDU_BASE_DEVICE := C8813
-
-##############################################################################
-# This value define to trigger server to build timely and daily
-# if you want to enable server build, set BAIDU_SERVER_BUILD := true
-# ----------------------------------------------------------------------------
-# BAIDU_SERVER_BUILD_ENABLE := true
-
-##############################################################################
 # Default DALVIK_VM_BUILD setting is 27
 # android 4.0: 27
 # android 4.1: 28
@@ -47,45 +16,19 @@ DALVIK_VM_BUILD := 27
 DENSITY := hdpi
 
 ##############################################################################
-# This value will control the method of pack or unpack image and so on
-# you can use mtk/qualcomm/sony
-#-----------------------------------------------------------------------------
-PLATFORM := qualcomm
-
-##############################################################################
-# This value will control the method of unpack image when prepare BOOT when use a ota base zip
-# you can use mtk/qualcomm/sony
-#-----------------------------------------------------------------------------
-BASE_PLATFORM := qualcomm
-
-##############################################################################
-# you can custom boot image and recovery image name
-#-----------------------------------------------------------------------------
-# BOOT_IMG := bootname
-# RECOVERY_IMG := recoveryname
-
-##############################################################################
-# use for newproject, not unpack boot.img to BOOT, or not unpack recovery.img to RECOVERY
-# Support Values:
-# false, not unpack
-#-----------------------------------------------------------------------------
-# PRJ_UNPACK_BOOT_IMG := false
-# PRJ_UNPACK_RECOVERY_IMG := false
-
-##############################################################################
 # customize weather use prebuilt image or pack from BOOT/RECOVERY directory
 # Support Values:
-# true, use prebuilt boot.img/recovery.img
-# flase, pack boot.img/recovery.img from vendor/BOOT / vendor/RECOVERY
-# NULL, none boot.img/recovery.img
+# vendor_modify_images := boot recovery
+# boot/recovery, pack boot.img/recovery.img from vendor/BOOT / vendor/RECOVERY
+# NULL, check boot.img/recovery.img in project root directory, if it exists,
+# use a prebuilt boot.img/recovery.img, if not, nothing to do
 #-----------------------------------------------------------------------------
-PREBUILT_BOOT_IMG := false
-#PREBUILT_RECOVERY_IMG := flase
+vendor_modify_images := boot
 
 ##############################################################################
 # Directorys which you want to remove in vendor directory
 #-----------------------------------------------------------------------------
-vendor_remove_dirs := app preload media/audio/notifications
+vendor_remove_dirs := app media/audio/notifications
 
 ##############################################################################
 # Files which you want to remove in vendor directory
@@ -152,13 +95,13 @@ baidu_remove_apps := BaiduUserFeedback
 # baidu_modify_apps: which base the baidu's apk
 # just override the res, append *.smali.part
 #-----------------------------------------------------------------------------
-baidu_modify_apps := Phone Settings
+baidu_modify_apps := Phone Settings Contacts
 
 ##############################################################################
 # baidu_modify_jars: which base the baidu's jar
 # just append *.smali.part
 #-----------------------------------------------------------------------------
-# baidu_modify_jars := android.policy
+baidu_modify_jars := android.policy framework-yi
 
 ##############################################################################
 # override_property: this property will override the build.prop
@@ -170,7 +113,8 @@ override_property += \
     persist.sys.baidu.default_write=first_storage \
     ro.baidu.2nd_storage.format=enable \
     ro.baidu.config.dsdsmode=single \
-    qemu.hw.mainkeys=1
+    qemu.hw.mainkeys=1 \
+    gsm.version.baseband=ZTE U930V1.0.0B03/U970V1.0.1B04
 
 # OTA package properties
 override_property += \
@@ -182,4 +126,7 @@ override_property += \
 remove_property += \
     dev.defaultwallpaper
 
+FORMAT_PARAM_NUM := 4
+
 include $(PORT_BUILD)/main.mk
+include $(PORT_BUILD)/autopatch.mk

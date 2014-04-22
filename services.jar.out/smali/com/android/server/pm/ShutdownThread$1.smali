@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/server/pm/ShutdownThread;->shutdownInner(Landroid/content/Context;Z)V
+    value = Lcom/android/server/pm/ShutdownThread;->createQbShutdownConfirmDialog(Landroid/content/Context;Landroid/app/AlertDialog;)Landroid/app/AlertDialog;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -17,13 +17,20 @@
 .end annotation
 
 
+# instance fields
+.field final synthetic val$context:Landroid/content/Context;
+
+
 # direct methods
-.method constructor <init>()V
+.method constructor <init>(Landroid/content/Context;)V
     .locals 0
+    .parameter
 
     .prologue
-    .line 148
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 157
+    iput-object p1, p0, Lcom/android/server/pm/ShutdownThread$1;->val$context:Landroid/content/Context;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -36,11 +43,12 @@
     .parameter "which"
 
     .prologue
-    .line 150
-    const/4 v0, 0x0
+    .line 159
+    iget-object v0, p0, Lcom/android/server/pm/ShutdownThread$1;->val$context:Landroid/content/Context;
 
-    invoke-static {v0}, Lcom/android/server/pm/ShutdownThread;->access$002(Z)Z
+    #calls: Lcom/android/server/pm/ShutdownThread;->beginShutdownSequence(Landroid/content/Context;)V
+    invoke-static {v0}, Lcom/android/server/pm/ShutdownThread;->access$000(Landroid/content/Context;)V
 
-    .line 151
+    .line 160
     return-void
 .end method

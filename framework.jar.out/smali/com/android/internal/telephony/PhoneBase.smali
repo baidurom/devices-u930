@@ -864,6 +864,35 @@
 
 
 # virtual methods
+.method public acceptCallVT()V
+    .locals 0
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lcom/android/internal/telephony/CallStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 1394
+    return-void
+.end method
+
+.method public dialVideoCall(Ljava/lang/String;)Lcom/android/internal/telephony/Connection;
+    .locals 1
+    .parameter "dialString"
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lcom/android/internal/telephony/CallStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 1384
+    const/4 v0, 0x0
+
+    return-object v0
+.end method
+
 .method public disableApnType(Ljava/lang/String;)I
     .locals 1
     .parameter "type"
@@ -2221,6 +2250,63 @@
 .method public abstract getState()Lcom/android/internal/telephony/Phone$State;
 .end method
 
+.method public getSubscription()I
+    .locals 1
+
+    .prologue
+    .line 1365
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method public getSystemProperty(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    .locals 1
+    .parameter "property"
+    .parameter "value"
+
+    .prologue
+    .line 181
+    invoke-virtual {p0}, Lcom/android/internal/telephony/PhoneBase;->getUnitTestMode()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    .line 182
+    const/4 v0, 0x0
+
+    .line 184
+    :goto_0
+    return-object v0
+
+    :cond_0
+    invoke-static {p1, p2}, Landroid/os/SystemProperties;->get(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    goto :goto_0
+.end method
+
+.method public getUiccCard()Lcom/android/internal/telephony/uicc/UiccCard;
+    .locals 1
+
+    .prologue
+    .line 742
+    const/4 v0, 0x0
+
+    return-object v0
+.end method
+
+.method protected getUiccCardApplication()Lcom/android/internal/telephony/uicc/UiccCardApplication;
+    .locals 1
+
+    .prologue
+    .line 746
+    const/4 v0, 0x0
+
+    return-object v0
+.end method
 .method public getUnitTestMode()Z
     .locals 1
 
@@ -2527,6 +2613,16 @@
 
     .prologue
     .line 798
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method public isManualNetSelAllowed()Z
+    .locals 1
+
+    .prologue
+    .line 1215
     const/4 v0, 0x0
 
     return v0
@@ -3223,6 +3319,17 @@
     return-void
 .end method
 
+.method public registerForSimRecordsLoaded(Landroid/os/Handler;ILjava/lang/Object;)V
+    .locals 0
+    .parameter "h"
+    .parameter "what"
+    .parameter "obj"
+
+    .prologue
+    .line 533
+    return-void
+.end method
+
 .method public registerForSubscriptionInfoReady(Landroid/os/Handler;ILjava/lang/Object;)V
     .locals 1
     .parameter "h"
@@ -3293,6 +3400,19 @@
     return-void
 .end method
 
+.method public rejectCallVT()V
+    .locals 0
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lcom/android/internal/telephony/CallStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 1391
+    return-void
+.end method
+
 .method public removeReferences()V
     .locals 2
 
@@ -3320,6 +3440,19 @@
     iput-object v1, p0, Lcom/android/internal/telephony/PhoneBase;->mDataConnectionTracker:Lcom/android/internal/telephony/DataConnectionTracker;
 
     .line 275
+    return-void
+.end method
+
+.method public requestFallback()V
+    .locals 0
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lcom/android/internal/telephony/CallStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 1388
     return-void
 .end method
 
@@ -3556,6 +3689,16 @@
     invoke-interface {v0, p1, p2}, Lcom/android/internal/telephony/CommandsInterface;->setTTYMode(ILandroid/os/Message;)V
 
     .line 729
+    return-void
+.end method
+
+.method public setTransmitPower(ILandroid/os/Message;)V
+    .locals 0
+    .parameter "powerLevel"
+    .parameter "onCompleted"
+
+    .prologue
+    .line 1357
     return-void
 .end method
 
@@ -3852,6 +3995,15 @@
     invoke-interface {v0, p1}, Lcom/android/internal/telephony/CommandsInterface;->unregisterForSignalInfo(Landroid/os/Handler;)V
 
     .line 935
+    return-void
+.end method
+
+.method public unregisterForSimRecordsLoaded(Landroid/os/Handler;)V
+    .locals 0
+    .parameter "h"
+
+    .prologue
+    .line 536
     return-void
 .end method
 

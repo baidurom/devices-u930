@@ -62,6 +62,8 @@
     .end annotation
 .end field
 
+.field public static final BUTTON_LIGHT_OFF:Ljava/lang/String; = "button_light_off"
+
 .field public static final CALL_AUTO_RETRY:Ljava/lang/String; = "call_auto_retry"
 
 .field public static final CAR_DOCK_SOUND:Ljava/lang/String; = "car_dock_sound"

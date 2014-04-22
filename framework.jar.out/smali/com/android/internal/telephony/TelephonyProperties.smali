@@ -6,17 +6,35 @@
 # static fields
 .field public static final CURRENT_ACTIVE_PHONE:Ljava/lang/String; = "gsm.current.phone-type"
 
+.field public static final PROPERTY_ADDED_ECC_LIST:Ljava/lang/String; = "persist.radio.added.eccList"
+
+.field public static final PROPERTY_ADDED_LIMIT_LIST:Ljava/lang/String; = "persist.radio.limitation.List"
+
+.field public static final PROPERTY_ALPHA_USRCNF:Ljava/lang/String; = "persist.atel.noalpha.usrcnf"
+
+.field public static final PROPERTY_APN_SIM_OPERATOR_NUMERIC:Ljava/lang/String; = "gsm.apn.sim.operator.numeric"
+
+.field public static final PROPERTY_BASEBAND:Ljava/lang/String; = "ro.baseband"
+
 .field public static final PROPERTY_BASEBAND_VERSION:Ljava/lang/String; = "gsm.version.baseband"
 
 .field public static final PROPERTY_CALL_RING_DELAY:Ljava/lang/String; = "ro.telephony.call_ring.delay"
 
+.field public static final PROPERTY_CDMA_IPPROTOCOL:Ljava/lang/String; = "persist.telephony.cdma.protocol"
+
 .field public static final PROPERTY_CDMA_MSG_ID:Ljava/lang/String; = "persist.radio.cdma.msgid"
 
+.field public static final PROPERTY_CDMA_ROAMING_IPPROTOCOL:Ljava/lang/String; = "persist.telephony.cdma.rproto"
+
 .field public static final PROPERTY_DATA_NETWORK_TYPE:Ljava/lang/String; = "gsm.network.type"
+
+.field public static final PROPERTY_DEFAULT_SUBSCRIPTION:Ljava/lang/String; = "persist.default.subscription"
 
 .field public static final PROPERTY_DISABLE_CALL:Ljava/lang/String; = "ro.telephony.disable-call"
 
 .field public static final PROPERTY_ECM_EXIT_TIMER:Ljava/lang/String; = "ro.cdma.ecmexittimer"
+
+.field public static final PROPERTY_EONS_ENABLED:Ljava/lang/String; = "persist.radio.eons.enabled"
 
 .field public static final PROPERTY_ICC_OPERATOR_ALPHA:Ljava/lang/String; = "gsm.sim.operator.alpha"
 
@@ -33,6 +51,16 @@
 .field public static final PROPERTY_LTE_ON_CDMA_DEVICE:Ljava/lang/String; = "telephony.lteOnCdmaDevice"
 
 .field public static final PROPERTY_LTE_ON_CDMA_PRODUCT_TYPE:Ljava/lang/String; = "telephony.lteOnCdmaProductType"
+
+.field public static final PROPERTY_MMS_TRANSACTION:Ljava/lang/String; = "mms.transaction"
+
+.field public static final PROPERTY_MULTI_RILD:Ljava/lang/String; = "ro.multi.rild"
+
+.field public static final PROPERTY_MULTI_SIM_CONFIG:Ljava/lang/String; = "persist.multisim.config"
+
+.field public static final PROPERTY_OMH_ENABLED:Ljava/lang/String; = "persist.omh.enabled"
+
+.field public static final PROPERTY_OOS_IS_DISCONNECT:Ljava/lang/String; = "persist.telephony.oosisdc"
 
 .field public static final PROPERTY_OPERATOR_ALPHA:Ljava/lang/String; = "gsm.operator.alpha"
 
@@ -52,12 +80,24 @@
 
 .field public static final PROPERTY_RIL_SENDS_MULTIPLE_CALL_RING:Ljava/lang/String; = "ro.telephony.call_ring.multiple"
 
+.field public static final PROPERTY_RUIM_OMH_CARD:Ljava/lang/String; = "ril.cdma.omhcard"
+
+.field public static final PROPERTY_RUIM_OMH_ENABLED:Ljava/lang/String; = "persist.sys.omh.enabled"
+
+.field public static final PROPERTY_RUIM_SUPPORT_EMS:Ljava/lang/String; = "persist.sys.ems"
+
 .field public static final PROPERTY_SIM_STATE:Ljava/lang/String; = "gsm.sim.state"
 
 .field public static final PROPERTY_SMS_RECEIVE:Ljava/lang/String; = "telephony.sms.receive"
+
+.field public static final PROPERTY_SMS_RETRY_DELAY:Ljava/lang/String; = "persist.radio.sms_retry_delay"
 
 .field public static final PROPERTY_SMS_SEND:Ljava/lang/String; = "telephony.sms.send"
 
 .field public static final PROPERTY_TEST_CSIM:Ljava/lang/String; = "persist.radio.test-csim"
 
+.field public static final PROPERTY_VOICE_MODEM_INDEX:Ljava/lang/String; = "persist.radio.voice.modem.index"
+
 .field public static final PROPERTY_WAKE_LOCK_TIMEOUT:Ljava/lang/String; = "ro.ril.wake_lock_timeout"
+
+.field public static final SMS_SYNCHRONOUS_SENDING:Ljava/lang/String; = "persist.radio.sms_sync_sending"

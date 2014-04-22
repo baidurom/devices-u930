@@ -5896,7 +5896,7 @@
 
 # virtual methods
 .method public dispatchWapPdu([B)I
-    .locals 24
+    .locals 25
     .parameter "pdu"
 
     .prologue
@@ -6103,11 +6103,7 @@
     .line 1146
     if-eqz v14, :cond_5
 
-    const/16 v22, 0x32
-
-    invoke-static/range {v22 .. v22}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-
-    move-result-object v22
+    const-string v22, "application/vnd.wap.coc"
 
     move-object/from16 v0, v22
 
@@ -6357,6 +6353,30 @@
     invoke-virtual {v12, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/io/Serializable;)Landroid/content/Intent;
 
     .line 1187
+    const-string/jumbo v22, "subscription"
+    
+    move-object/from16 v0, p0
+    
+    iget-object v0, v0, Lcom/android/internal/telephony/WapPushOverSms;->mSmsDispatcher:Lcom/android/internal/telephony/SMSDispatcher;
+    
+    move-object/from16 v23, v0
+    
+    move-object/from16 v0, v23
+    
+    iget-object v0, v0, Lcom/android/internal/telephony/SMSDispatcher;->mPhone:Lcom/android/internal/telephony/PhoneBase;
+    
+    move-object/from16 v23, v0
+    
+    invoke-virtual/range {v23 .. v23}, Lcom/android/internal/telephony/PhoneBase;->getSubscription()I
+    
+    move-result v23
+    
+    move-object/from16 v0, v22
+    
+    move/from16 v1, v23
+    
+    invoke-virtual {v12, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
+    
     move-object/from16 v0, v21
 
     move-object/from16 v1, v20
@@ -6382,7 +6402,7 @@
     .line 1191
     const/16 v18, 0x0
 
-    goto :goto_3
+    goto/16 :goto_3
 
     .line 1197
     .end local v12           #intent:Landroid/content/Intent;
@@ -6405,11 +6425,7 @@
 
     .line 1210
     :cond_9
-    const/16 v22, 0x3e
-
-    invoke-static/range {v22 .. v22}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-
-    move-result-object v22
+    const-string v22, "application/vnd.wap.mms-message"
 
     move-object/from16 v0, v22
 
@@ -6421,10 +6437,82 @@
 
     .line 1211
     const-string v16, "android.permission.RECEIVE_MMS"
-
-    .line 1216
+    
     .local v16, permission:Ljava/lang/String;
+    invoke-static {v13}, Lcom/baidu/internal/telephony/SMSPlugin;->getMmsNotiWapPushAddress([B)Ljava/lang/String;
+  
+    move-result-object v22
+
+    sput-object v22, Lcom/baidu/internal/telephony/SMSPlugin;->msgAddress:Ljava/lang/String;
+     
     :goto_4
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/internal/telephony/WapPushOverSms;->mContext:Landroid/content/Context;
+
+    move-object/from16 v23, v0
+
+    sget-object v24, Lcom/baidu/internal/telephony/SMSPlugin;->msgAddress:Ljava/lang/String;
+    
+    const-string v22, "application/vnd.wap.mms-message"
+
+    move-object/from16 v0, v22
+
+    invoke-virtual {v14, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v22
+    
+    if-eqz v22, :cond_b
+    
+    const/16 v22, 0x2
+
+    :goto_5
+    move-object/from16 v0, v23
+    
+    move-object/from16 v1, v24
+
+    move/from16 v2, v22
+    
+    invoke-static {v0, v1, v2}, Lcom/baidu/internal/telephony/DisturbPreventUtils;->shouldPrevent(Landroid/content/Context;Ljava/lang/String;I)I
+
+    move-result v22
+
+    const/16 v23, 0x1
+
+    move/from16 v0, v22
+
+    move/from16 v1, v23
+
+    if-ne v0, v1, :cond_c
+    
+    move-object/from16 v0, p0
+    
+    iget-object v0, v0, Lcom/android/internal/telephony/WapPushOverSms;->mContext:Landroid/content/Context;
+    
+    move-object/from16 v22, v0
+    
+    move-object/from16 v0, v22
+    
+    invoke-static {v0, v14, v13}, Lcom/baidu/internal/telephony/SMSPlugin;->dispatchDisturbWapPdu(Landroid/content/Context;Ljava/lang/String;[B)V
+    
+    const/16 v22, 0x1
+
+    goto/16 :goto_0
+         
+    .end local v16           #permission:Ljava/lang/String;
+    :cond_a
+    const-string v16, "android.permission.RECEIVE_WAP_PUSH"
+    
+    .restart local v16       #permission:Ljava/lang/String;
+    goto :goto_4
+    
+    :cond_b
+    const/16 v22, 0x1
+    
+    goto :goto_5
+     
+    .line 1216
+    :cond_c
     new-instance v12, Landroid/content/Intent;
 
     const-string v22, "android.provider.Telephony.WAP_PUSH_RECEIVED"
@@ -6485,7 +6573,41 @@
     move-object/from16 v1, v23
 
     invoke-virtual {v12, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/io/Serializable;)Landroid/content/Intent;
+      
+    const-string/jumbo v22, "subscription"
+    
+    move-object/from16 v0, p0
+    
+    iget-object v0, v0, Lcom/android/internal/telephony/WapPushOverSms;->mSmsDispatcher:Lcom/android/internal/telephony/SMSDispatcher;
+    
+    move-object/from16 v23, v0
+    
+    move-object/from16 v0, v23
+    
+    iget-object v0, v0, Lcom/android/internal/telephony/SMSDispatcher;->mPhone:Lcom/android/internal/telephony/PhoneBase;
+    
+    move-object/from16 v23, v0
+    
+    invoke-virtual/range {v23 .. v23}, Lcom/android/internal/telephony/PhoneBase;->getSubscription()I
+    
+    move-result v23
+    
+    move-object/from16 v0, v22
+    
+    move/from16 v1, v23
+    
+    invoke-virtual {v12, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
+    
+    const-string v22, "address"
+   
+    sget-object v23, Lcom/baidu/internal/telephony/SMSPlugin;->msgAddress:Ljava/lang/String;
 
+    move-object/from16 v0, v22
+
+    move-object/from16 v1, v23
+
+    invoke-virtual {v12, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+    
     .line 1224
     move-object/from16 v0, p0
 
@@ -6503,15 +6625,6 @@
     const/16 v22, -0x1
 
     goto/16 :goto_0
-
-    .line 1213
-    .end local v12           #intent:Landroid/content/Intent;
-    .end local v16           #permission:Ljava/lang/String;
-    :cond_a
-    const-string v16, "android.permission.RECEIVE_WAP_PUSH"
-
-    .restart local v16       #permission:Ljava/lang/String;
-    goto :goto_4
 .end method
 
 .method public dispatchWapPdu([BI[[B)I

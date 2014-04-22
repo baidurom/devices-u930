@@ -8,6 +8,7 @@
     value = {
         Lcom/android/server/net/NetworkStatsService$DefaultNetworkStatsSettings;,
         Lcom/android/server/net/NetworkStatsService$DropBoxNonMonotonicObserver;,
+        Lcom/android/server/net/NetworkStatsService$QuickbootBroadcastReceiver;,
         Lcom/android/server/net/NetworkStatsService$NetworkStatsSettings;
     }
 .end annotation
@@ -106,6 +107,8 @@
 
 .field private mPollReceiver:Landroid/content/BroadcastReceiver;
 
+.field private mQbReceiver:Landroid/content/BroadcastReceiver;
+
 .field private mRemovedReceiver:Landroid/content/BroadcastReceiver;
 
 .field private final mSettings:Lcom/android/server/net/NetworkStatsService$NetworkStatsSettings;
@@ -173,7 +176,7 @@
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/os/INetworkManagementService;Landroid/app/IAlarmManager;Landroid/util/TrustedTime;Ljava/io/File;Lcom/android/server/net/NetworkStatsService$NetworkStatsSettings;)V
-    .locals 6
+    .locals 7
     .parameter "context"
     .parameter "networkManager"
     .parameter "alarmManager"
@@ -182,6 +185,8 @@
     .parameter "settings"
 
     .prologue
+    const/4 v6, 0x0
+    
     const/4 v5, 0x0
 
     .line 254
@@ -209,9 +214,7 @@
     .line 216
     new-instance v1, Lcom/android/server/net/NetworkStatsService$DropBoxNonMonotonicObserver;
 
-    const/4 v2, 0x0
-
-    invoke-direct {v1, p0, v2}, Lcom/android/server/net/NetworkStatsService$DropBoxNonMonotonicObserver;-><init>(Lcom/android/server/net/NetworkStatsService;Lcom/android/server/net/NetworkStatsService$1;)V
+    invoke-direct {v1, p0, v6}, Lcom/android/server/net/NetworkStatsService$DropBoxNonMonotonicObserver;-><init>(Lcom/android/server/net/NetworkStatsService;Lcom/android/server/net/NetworkStatsService$1;)V
 
     iput-object v1, p0, Lcom/android/server/net/NetworkStatsService;->mNonMonotonicObserver:Lcom/android/server/net/NetworkStatsService$DropBoxNonMonotonicObserver;
 
@@ -238,6 +241,12 @@
 
     iput-wide v1, p0, Lcom/android/server/net/NetworkStatsService;->mPersistThreshold:J
 
+    new-instance v1, Lcom/android/server/net/NetworkStatsService$QuickbootBroadcastReceiver;
+    
+    invoke-direct {v1, p0, v6}, Lcom/android/server/net/NetworkStatsService$QuickbootBroadcastReceiver;-><init>(Lcom/android/server/net/NetworkStatsService;Lcom/android/server/net/NetworkStatsService$1;)V
+    
+    iput-object v1, p0, Lcom/android/server/net/NetworkStatsService;->mQbReceiver:Landroid/content/BroadcastReceiver;
+    
     .line 703
     new-instance v1, Lcom/android/server/net/NetworkStatsService$2;
 
@@ -549,6 +558,17 @@
     iput p1, p0, Lcom/android/server/net/NetworkStatsService;->mLastPhoneNetworkType:I
 
     return p1
+.end method
+
+.method static synthetic access$1503(Lcom/android/server/net/NetworkStatsService;)V
+    .locals 0
+    .parameter "x0"
+
+    .prologue
+    .line 131
+    invoke-direct {p0}, Lcom/android/server/net/NetworkStatsService;->qbShutdownLocked()V
+
+    return-void
 .end method
 
 .method static synthetic access$200(Lcom/android/server/net/NetworkStatsService;)Lcom/android/server/net/NetworkStatsRecorder;
@@ -1897,6 +1917,78 @@
     goto/16 :goto_0
 .end method
 
+.method private qbShutdownLocked()V
+    .locals 3
+
+    .prologue
+    .line 353
+    iget-object v2, p0, Lcom/android/server/net/NetworkStatsService;->mTime:Landroid/util/TrustedTime;
+
+    invoke-interface {v2}, Landroid/util/TrustedTime;->hasCache()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_1
+
+    iget-object v2, p0, Lcom/android/server/net/NetworkStatsService;->mTime:Landroid/util/TrustedTime;
+
+    invoke-interface {v2}, Landroid/util/TrustedTime;->currentTimeMillis()J
+
+    move-result-wide v0
+
+    .line 356
+    .local v0, currentTime:J
+    :goto_0
+    iget-object v2, p0, Lcom/android/server/net/NetworkStatsService;->mDevRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    if-eqz v2, :cond_0
+
+    iget-object v2, p0, Lcom/android/server/net/NetworkStatsService;->mXtRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    if-eqz v2, :cond_0
+
+    iget-object v2, p0, Lcom/android/server/net/NetworkStatsService;->mUidRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    if-eqz v2, :cond_0
+
+    iget-object v2, p0, Lcom/android/server/net/NetworkStatsService;->mUidTagRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    if-eqz v2, :cond_0
+
+    .line 358
+    iget-object v2, p0, Lcom/android/server/net/NetworkStatsService;->mDevRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    invoke-virtual {v2, v0, v1}, Lcom/android/server/net/NetworkStatsRecorder;->forcePersistLocked(J)V
+
+    .line 359
+    iget-object v2, p0, Lcom/android/server/net/NetworkStatsService;->mXtRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    invoke-virtual {v2, v0, v1}, Lcom/android/server/net/NetworkStatsRecorder;->forcePersistLocked(J)V
+
+    .line 360
+    iget-object v2, p0, Lcom/android/server/net/NetworkStatsService;->mUidRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    invoke-virtual {v2, v0, v1}, Lcom/android/server/net/NetworkStatsRecorder;->forcePersistLocked(J)V
+
+    .line 361
+    iget-object v2, p0, Lcom/android/server/net/NetworkStatsService;->mUidTagRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    invoke-virtual {v2, v0, v1}, Lcom/android/server/net/NetworkStatsRecorder;->forcePersistLocked(J)V
+
+    .line 363
+    :cond_0
+    return-void
+
+    .line 353
+    .end local v0           #currentTime:J
+    :cond_1
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v0
+
+    goto :goto_0
+.end method
+
 .method private registerGlobalAlert()V
     .locals 4
 
@@ -2024,6 +2116,29 @@
     move-exception v0
 
     goto :goto_0
+.end method
+
+.method private registerQbReceiver()V
+    .locals 3
+
+    .prologue
+    .line 348
+    new-instance v0, Landroid/content/IntentFilter;
+
+    const-string v1, "android.intent.action.ACTION_QUICKBOOT_SHUTDOWN"
+
+    invoke-direct {v0, v1}, Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V
+
+    .line 349
+    .local v0, qbFilter:Landroid/content/IntentFilter;
+    iget-object v1, p0, Lcom/android/server/net/NetworkStatsService;->mContext:Landroid/content/Context;
+
+    iget-object v2, p0, Lcom/android/server/net/NetworkStatsService;->mQbReceiver:Landroid/content/BroadcastReceiver;
+
+    invoke-virtual {v1, v2, v0}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
+
+    .line 350
+    return-void
 .end method
 
 .method private removeUidLocked(I)V
@@ -3752,6 +3867,8 @@
     invoke-virtual {v5, v6, v3}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
     .line 329
+    invoke-direct {p0}, Lcom/android/server/net/NetworkStatsService;->registerQbReceiver()V
+    
     :try_start_1
     iget-object v5, p0, Lcom/android/server/net/NetworkStatsService;->mNetworkManager:Landroid/os/INetworkManagementService;
 

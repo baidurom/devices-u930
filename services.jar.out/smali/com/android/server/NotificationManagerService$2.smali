@@ -351,5 +351,14 @@
 
     if-eqz v11, :cond_3
 
+    iget-object v11, p0, Lcom/android/server/NotificationManagerService$2;->this$0:Lcom/android/server/NotificationManagerService;
+    
+    #getter for: Lcom/android/server/NotificationManagerService;->mNotificationLight:Lcom/android/server/LightsService$Light;
+    invoke-static {v11}, Lcom/android/server/NotificationManagerService;->access$1301(Lcom/android/server/NotificationManagerService;)Lcom/android/server/LightsService$Light;
+    
+    move-result-object v11
+    
+    invoke-virtual {v11}, Lcom/android/server/LightsService$Light;->turnOff()V
+    
     goto :goto_3
 .end method

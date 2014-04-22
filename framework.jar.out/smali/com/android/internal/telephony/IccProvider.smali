@@ -69,7 +69,7 @@
 
     aput-object v1, v0, v5
 
-    const/4 v1, 0x4
+    const/4 v1, 0x7
 
     const-string/jumbo v2, "number3"
 
@@ -87,7 +87,7 @@
 
     aput-object v2, v0, v1
 
-    const/4 v1, 0x7
+    const/4 v1, 0x4
 
     const-string v2, "_id"
 
@@ -591,12 +591,20 @@
     invoke-virtual/range {p1 .. p1}, Lcom/android/internal/telephony/AdnRecord;->getAlphaTag()Ljava/lang/String;
 
     move-result-object v1
+    
+    move-object/from16 v0, p0
+    
+    invoke-direct {v0, v1}, Lcom/android/internal/telephony/IccProvider;->log(Ljava/lang/String;)V
 
     .line 618
     .local v1, alphaTag:Ljava/lang/String;
     invoke-virtual/range {p1 .. p1}, Lcom/android/internal/telephony/AdnRecord;->getNumber()Ljava/lang/String;
 
     move-result-object v12
+    
+    move-object/from16 v0, p0
+    
+    invoke-direct {v0, v12}, Lcom/android/internal/telephony/IccProvider;->log(Ljava/lang/String;)V
 
     .line 619
     .local v12, number:Ljava/lang/String;
@@ -716,7 +724,7 @@
     aput-object v2, v6, v14
 
     .line 646
-    const/4 v14, 0x4
+    const/4 v14, 0x7
 
     aput-object v3, v6, v14
 
@@ -731,7 +739,7 @@
     aput-object v13, v6, v14
 
     .line 649
-    const/4 v14, 0x7
+    const/4 v14, 0x4
 
     invoke-static/range {p3 .. p3}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
@@ -1176,7 +1184,11 @@
     invoke-direct {v0, v1}, Lcom/android/internal/telephony/IccProvider;->normalizeValue(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v4
-
+    
+    invoke-virtual {v4}, Ljava/lang/String;->trim()Ljava/lang/String;
+    
+    move-result-object v4
+    
     goto :goto_1
 
     .line 286

@@ -1679,7 +1679,7 @@
 .end method
 
 .method private onIccSwap(Z)V
-    .locals 8
+    .locals 9
     .parameter "isAdded"
 
     .prologue
@@ -1738,8 +1738,10 @@
     invoke-virtual {v7}, Lcom/android/internal/telephony/PhoneBase;->getContext()Landroid/content/Context;
 
     move-result-object v7
+    
+    const v8, #style@Theme.DeviceDefault.Light.Dialog.Alert#t
 
-    invoke-direct {v6, v7}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
+    invoke-direct {v6, v7, v8}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;I)V
 
     invoke-virtual {v6, v5}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
