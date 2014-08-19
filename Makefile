@@ -2,6 +2,18 @@
 # Please use this file as the project Makefile reference
 
 ##############################################################################
+# This value defines which base this project should choose, only for baidu internal.
+# Support values: S710, JRD77SS, YINS, YIGN
+#-----------------------------------------------------------------------------
+BAIDU_BASE_DEVICE := C8813
+
+##############################################################################
+# This value define to trigger server to build timely and daily
+# if you want to enable server build, set BAIDU_SERVER_BUILD := true
+# ----------------------------------------------------------------------------
+# BAIDU_SERVER_BUILD_ENABLE := true
+
+##############################################################################
 # Default DALVIK_VM_BUILD setting is 27
 # android 4.0: 27
 # android 4.1: 28
@@ -129,4 +141,3 @@ remove_property += \
 FORMAT_PARAM_NUM := 4
 
 include $(PORT_BUILD)/main.mk
-include $(PORT_BUILD)/autopatch.mk
